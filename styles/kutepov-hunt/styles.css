@@ -1,0 +1,204 @@
+/* Kutepov, Tsar's Hunt (1898), pp. 85-86 tone study
+   Two printed inks separated from the scan into masks; text re-set line for line.
+   Pages are print, so light paper only; the desk around them is dark. */
+
+@font-face {
+  font-family: "Old Standard TT";
+  src: url("fonts/old-standard-400-subset.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+}
+/* Subsets cover Russian (old and modern spelling) plus the page's punctuation. */
+@font-face {
+  font-family: "Old Standard TT";
+  src: url("fonts/old-standard-italic-subset.woff2") format("woff2");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Noto Serif TC";
+  src: url("fonts/noto-serif-tc-subset.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+}
+
+:root {
+  --desk: #2b2925;
+  --desk-text: #e8e1cf;
+  --paper: #eee6cf;
+  --black-ink: #2e2c27;
+  --red-ink: #c05a3c;
+  --serif: "Old Standard TT", "Times New Roman", serif;
+  --ui: "Noto Serif TC", "Songti TC", serif;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100dvh;
+  background: var(--desk);
+  color: var(--desk-text);
+  font-family: var(--ui);
+  -webkit-font-smoothing: antialiased;
+}
+p { margin: 0; }
+button { font: inherit; color: inherit; }
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--red-ink); outline-offset: 3px; }
+
+/* ---------- Bar ---------- */
+.bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem 1.5rem;
+  min-height: 64px;
+  padding: 0.75rem clamp(1rem, 3vw, 2.5rem);
+}
+.bar__title { font: 400 1.1rem var(--serif); }
+.bar__title span { margin-left: 0.75rem; font: 0.9rem var(--ui); color: #b9b19d; }
+.bar__controls { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+.seg { display: flex; border: 1px solid #8d8574; }
+.seg button,
+.bar__scan {
+  height: 36px;
+  padding: 0 0.9rem;
+  border: 0;
+  background: transparent;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+.seg button + button { border-left: 1px solid #8d8574; }
+.seg button[aria-pressed="true"],
+.bar__scan[aria-pressed="true"] { background: var(--paper); color: var(--black-ink); }
+.bar__scan { border: 1px solid #8d8574; }
+
+/* ---------- Spread ---------- */
+.spread {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  width: min(calc(100vw - 2rem), (100dvh - 6rem) * 3316 / 4557 * 2);
+  margin: 0 auto;
+  box-shadow: 0 30px 60px -20px rgb(0 0 0 / 0.6);
+}
+
+.page {
+  position: relative;
+  container-type: inline-size;
+  aspect-ratio: 3316 / 4557;
+  overflow: hidden;
+  color: var(--black-ink);
+  font-family: var(--serif);
+}
+/* The fold: each page darkens toward the gutter */
+.page--85 { background: linear-gradient(90deg, var(--paper) 88%, #ddd3b8 100%); }
+.page--86 { background: linear-gradient(90deg, #ddd3b8 0%, var(--paper) 12%); }
+
+.page__scan {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s var(--ease);
+}
+.spread.is-scan .page__scan { opacity: 1; }
+
+/* Inks: one mask per printing pass, filled with that pass's colour */
+.ink {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  aspect-ratio: 1600 / 1264;
+  -webkit-mask-size: 100% 100%;
+          mask-size: 100% 100%;
+  mix-blend-mode: multiply;
+}
+.ink--black { background: var(--black-ink); -webkit-mask-image: url("assets/ink-black.png"); mask-image: url("assets/ink-black.png"); }
+.ink--red { background: var(--red-ink); -webkit-mask-image: url("assets/ink-red.png"); mask-image: url("assets/ink-red.png"); }
+
+.caption {
+  position: absolute;
+  left: 63%;
+  top: 50.9%;
+  width: 16%;
+  white-space: nowrap;
+  text-align: center;
+  font-size: 1.4cqw;
+  line-height: 1.83;
+}
+
+.text {
+  position: absolute;
+  left: 19.1%;
+  width: 60.4%;
+  font-size: 1.86cqw;
+  line-height: 2.768cqw; /* the book's line pitch, measured from the scan */
+  hyphens: manual;
+}
+.text--85 { top: 59.9%; }
+.text--86 { top: 14.5%; }
+.ln { display: block; text-align: justify; text-align-last: justify; }
+.ln--last { text-align-last: left; }
+.ln--indent { text-indent: 1.6em; }
+.text sup { font-size: 0.62em; line-height: 0; }
+.page--86 .folio { top: 77.8%; }
+
+.folio {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 80.6%;
+  text-align: center;
+  font-size: 1.86cqw;
+}
+
+.credit {
+  max-width: 64rem;
+  margin: 0 auto;
+  padding: 1.5rem clamp(1rem, 3vw, 2.5rem) 2.5rem;
+  font-size: 0.85rem;
+  line-height: 1.7;
+  color: #b9b19d;
+}
+
+/* ---------- Narrow: one page per row, text in readable flow ---------- */
+@media (max-width: 760px) {
+  .spread { grid-template-columns: 1fr; width: 100%; box-shadow: none; gap: 1rem; }
+  .page { aspect-ratio: auto; padding-bottom: 3.5rem; background: var(--paper); }
+  .ink { position: relative; }
+  .ink--red { position: absolute; }
+  .caption { position: static; width: auto; margin: 0.25rem 1.25rem 1rem auto; padding-right: 1.25rem; text-align: right; font-size: 0.9rem; }
+  .text { position: static; width: auto; padding: 0 1.25rem; font-size: 1.05rem; line-height: 1.6; }
+  .text--86 { padding-top: 1.75rem; }
+  /* lines flow as one paragraph; the markup's whitespace separates them */
+  .ln { display: inline; white-space: normal; text-align: left; }
+  .ln--last::after { content: "\A\A"; white-space: pre; }
+  .ln--indent::before { content: ""; display: inline-block; width: 1.6em; }
+  /* rejoin words the book hyphenated at its line ends (no whitespace follows them in the markup) */
+  .hy { display: none; }
+  .folio,
+  .page--86 .folio { top: auto; bottom: 1.25rem; font-size: 0.95rem; }
+  .page__scan { height: auto; }
+}
+
+/* ---------- Motion: two passes through the press, black then red ---------- */
+@media (prefers-reduced-motion: no-preference) {
+  .ink--black { animation: ink 0.7s var(--ease) both; }
+  .ink--red { animation: register 1.1s var(--ease) 0.55s both; }
+  .text, .caption, .folio { animation: ink 0.8s var(--ease) 1.2s both; }
+}
+@keyframes ink { from { opacity: 0; } }
+@keyframes register {
+  0%   { opacity: 0; transform: translate(1.4cqw, -0.9cqw); }
+  35%  { opacity: 1; transform: translate(1.4cqw, -0.9cqw); }
+  100% { opacity: 1; transform: none; }
+}

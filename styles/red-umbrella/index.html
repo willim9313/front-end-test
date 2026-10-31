@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>起霧的窗</title>
+  <!-- Local-only original art switch; does nothing in the public repo (see the file) -->
+  <script src="../../overview/local-original.js"></script>
+  <meta name="description" content="Tone study after a grey rainy-window illustration with one red umbrella: wipe the fogged glass to see the street." />
+  <link rel="preload" href="assets/fog.jpg" as="image" />
+  <link rel="stylesheet" href="styles.css" />
+  <script src="main.js" defer></script>
+</head>
+<body>
+  <main class="room">
+    <!-- Clear scene underneath, fog painted on a canvas above; wiping erases the fog -->
+    <figure class="window" data-window>
+      <img class="window__scene" src="assets/scene.jpg" width="736" height="1308"
+           alt="從樓上的窗戶正上方俯視雨中的街道：灰色的人行道、行道樹、車子和一把把灰色的傘，只有斑馬線上那把傘是紅的；窗台上有一盆植物。" />
+      <canvas class="window__fog" data-fog aria-hidden="true"></canvas>
+      <canvas class="window__rain" data-rain aria-hidden="true"></canvas>
+    </figure>
+
+    <aside class="side">
+      <h1 class="side__title">起霧的窗</h1>
+      <p class="side__lede">整張畫都是灰的，只有一把紅傘。窗子起霧了也一樣看得到它。用手指或滑鼠擦一擦玻璃，霧會慢慢再回來。</p>
+
+      <div class="controls">
+        <label class="control">
+          <span>雨</span>
+          <input type="range" min="0" max="100" value="55" data-rain-level />
+        </label>
+        <label class="control">
+          <span>霧回來的速度</span>
+          <input type="range" min="0" max="100" value="35" data-fog-speed />
+        </label>
+        <button type="button" class="wipe" data-clear>整片擦乾淨</button>
+      </div>
+    </aside>
+  </main>
+
+  <p class="credit">風格研究，靈感來自 Pinterest 上一張雨天窗景插畫（作者不明）。街景是這頁自己重新畫的，構圖和原作不同；霧和雨是另外疊上去的效果。</p>
+  <!-- Shared spec card and link back to the catalogue -->
+  <script src="../../overview/catalog.js" defer></script>
+  <script src="../../overview/spec.js" defer></script>
+</body>
+</html>

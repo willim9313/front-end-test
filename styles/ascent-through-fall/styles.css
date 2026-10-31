@@ -1,0 +1,205 @@
+/* Ascent Through Fall tone study
+   Grey photocopy poster, light only on purpose. Positions are the poster's own,
+   expressed in % of a 1080 x 1350 sheet; type sizes are fitted in JS. */
+
+@font-face {
+  font-family: "League Gothic";
+  src: url("fonts/league-gothic-latin.woff2") format("woff2");
+  font-weight: 400;
+  font-stretch: 75% 100%;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Cormorant Garamond";
+  src: url("fonts/cormorant-garamond-500-latin.woff2") format("woff2");
+  font-weight: 500;
+  font-display: swap;
+}
+
+:root {
+  --desk: #d6d6d5;
+  --paper: #e4e4e3;
+  --ink: #2a2a2a;
+  --display: "League Gothic", "Arial Narrow", sans-serif;
+  --serif: "Cormorant Garamond", Georgia, serif;
+  color-scheme: light;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--desk);
+  color: var(--ink);
+  font-family: var(--serif);
+  -webkit-font-smoothing: antialiased;
+}
+h1, p { margin: 0; }
+
+/* ---------- Scroll stage ---------- */
+.scroller {
+  height: 320vh;
+  view-timeline: --fall block;
+}
+.poster {
+  position: sticky;
+  /* centre the sheet vertically when it is shorter than the viewport (phones) */
+  top: max(0px, (100dvh - min(100vw, 100dvh * 1080 / 1350) * 1350 / 1080) / 2);
+  container-type: inline-size;
+  width: min(100vw, 100dvh * 1080 / 1350);
+  aspect-ratio: 1080 / 1350;
+  margin: 0 auto;
+  overflow: hidden;
+  background: var(--paper);
+}
+/* Photocopy grain on the sheet only */
+.poster::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.55;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .45 0 0 0 0 .45 0 0 0 0 .45 0 0 0 .22 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.poster__art {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  mix-blend-mode: multiply;
+}
+
+/* ---------- Title with falling blades ---------- */
+.title { position: absolute; inset: 0; pointer-events: none; }
+.title__line {
+  position: absolute;
+  display: block;
+  font-family: var(--display);
+  font-weight: 400;
+  font-stretch: 75%;
+  line-height: 0.74;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--ink);
+}
+.title__line--ascent  { left: 3.7%; top: 18.2%; letter-spacing: 0.01em; }
+.title__line--through { left: 7.1%; top: 30%; }
+.title__line--fall    { left: 9.7%; top: 37.6%; letter-spacing: 0.02em; transform: scaleY(1.4); transform-origin: 0 0; }
+
+/* Blades: tapered strokes hanging from the first letters, drawn as the reader falls */
+.blade {
+  position: absolute;
+  top: 0.04em;
+  left: 0.02em;
+  width: var(--bw);
+  height: var(--bl);
+  background: var(--ink);
+  clip-path: polygon(0 0, 100% 0, 78% 100%, 55% 100%);
+  transform-origin: 50% 0;
+}
+.blade--1 { --bw: 1.15cqw; --bl: 45cqw; }
+.blade--2 { --bw: 1.3cqw; --bl: 21cqw; } /* the FALL line is scaled 1.4x, so its blades are drawn shorter */
+.blade--3 { --bw: 0.9cqw; --bl: 18cqw; left: 4.6cqw; }
+
+/* ---------- Poem ---------- */
+.poem {
+  position: absolute;
+  left: 66.5%;
+  top: 33.8%;
+  width: 31.5%;
+  display: grid;
+  justify-items: center;
+  font-size: 1.62cqw;
+  line-height: 1.55;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+.poem span { white-space: nowrap; }
+.poem__last { justify-self: end; }
+
+.aside {
+  position: absolute;
+  left: 1.4%;
+  top: 85.4%;
+  width: 27%;
+  font-size: 1.05cqw;
+  line-height: 1.45;
+  text-transform: uppercase;
+}
+
+.marks {
+  position: absolute;
+  font-size: 1.9cqw;
+  letter-spacing: 0.12em;
+  line-height: 1;
+}
+.marks--top { left: 2.3%; top: 1.6%; }
+.marks--mid { left: 87.6%; top: 55.4%; }
+
+.credit-line {
+  position: absolute;
+  left: 3.3%;
+  top: 94%;
+  font: 400 2.4cqw/1 var(--display);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.note {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 1.5rem 1rem 2.5rem;
+  font-size: 0.95rem;
+  font-style: italic;
+  color: #4a4a4a;
+}
+
+/* ---------- Scroll-driven story: fall (blades drop, verse arrives), then rise ---------- */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .blade {
+      animation: drop linear both;
+      animation-timeline: --fall;
+      animation-range: contain 0% contain 70%;
+    }
+    .blade--2 { animation-range: contain 8% contain 74%; }
+    .blade--3 { animation-range: contain 14% contain 78%; }
+
+    .poster__art {
+      animation: fall-rise linear both;
+      animation-timeline: --fall;
+      animation-range: contain 0% contain 100%;
+    }
+
+    .poem span {
+      animation: arrive linear both;
+      animation-timeline: --fall;
+      animation-range: contain calc(6% + var(--i) * 7%) contain calc(12% + var(--i) * 7%);
+    }
+    .aside {
+      animation: arrive linear both;
+      animation-timeline: --fall;
+      animation-range: contain 88% contain 98%;
+    }
+  }
+}
+@keyframes drop { from { transform: scaleY(0.08); } to { transform: scaleY(1); } }
+/* Straight down the axis and back up: no rotation, so the axis stays vertical */
+@keyframes fall-rise {
+  0%   { transform: translateY(-3%); }
+  75%  { transform: translateY(4%); }
+  100% { transform: translateY(-2%); }
+}
+@keyframes arrive { from { opacity: 0; transform: translateY(0.4em); filter: blur(2px); } to { opacity: 1; transform: none; filter: none; } }
+
+/* No scroll timeline (or reduced motion): show the finished poster without the tall scroll */
+@supports not (animation-timeline: view()) {
+  .scroller { height: auto; }
+  .poster { position: relative; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .scroller { height: auto; }
+  .poster { position: relative; }
+}

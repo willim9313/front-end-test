@@ -1,0 +1,164 @@
+/* Moon window tone study
+   Poster paper #E8DDB0 sampled from the art; teal-black ink and vermilion from the koi.
+   Light only: the page is the poster's paper. */
+
+@font-face {
+  font-family: "Noto Serif TC";
+  src: url("fonts/noto-serif-tc-400-subset.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+}
+/* Noto files are subsets of this page's text (HTML + toggle labels). Re-subset after editing copy. */
+@font-face {
+  font-family: "Noto Serif TC";
+  src: url("fonts/noto-serif-tc-600-subset.woff2") format("woff2");
+  font-weight: 600;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Cormorant SC";
+  src: url("fonts/cormorant-sc-500-latin.woff2") format("woff2");
+  font-weight: 500;
+  font-display: swap;
+}
+
+:root {
+  --paper: #e8ddb0;
+  --ink: #243a3a;      /* 8.8:1 */
+  --mute: #5a5040;     /* 5.8:1 */
+  --vermilion: #9e2f22;/* koi red, deepened for text: 5.3:1 */
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  color-scheme: light;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100dvh;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: "Noto Serif TC", "Songti TC", serif;
+  -webkit-font-smoothing: antialiased;
+}
+h1, p, figure { margin: 0; }
+button { font: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--vermilion); outline-offset: 3px; }
+
+.hall {
+  display: grid;
+  grid-template-columns: auto minmax(15rem, 20rem);
+  justify-content: center;
+  align-items: center;
+  gap: clamp(2rem, 5vw, 4.5rem);
+  min-height: calc(100dvh - 3.5rem);
+  padding: clamp(1rem, 3vh, 2rem) clamp(1rem, 4vw, 3rem) 0;
+}
+
+/* ---------- Poster ---------- */
+.poster {
+  position: relative;
+  container-type: inline-size;
+  height: min(88dvh, 977px);
+  aspect-ratio: 736 / 977;
+}
+.poster__art { display: block; width: 100%; height: 100%; }
+
+.poster__fall {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  -webkit-mask: url("assets/waterfall-mask.png") 0 0 / 100% 100% no-repeat;
+          mask: url("assets/waterfall-mask.png") 0 0 / 100% 100% no-repeat;
+  background:
+    repeating-linear-gradient(180deg,
+      rgb(255 255 255 / 0) 0 6cqw,
+      rgb(255 255 255 / 0.28) 7cqw,
+      rgb(255 255 255 / 0) 9cqw 15cqw),
+    repeating-linear-gradient(90deg,
+      rgb(255 255 255 / 0) 0 0.7cqw,
+      rgb(255 255 255 / 0.12) 0.9cqw,
+      rgb(255 255 255 / 0) 1.3cqw 2.1cqw);
+  background-size: 100% 15cqw, 2.1cqw 100%;
+  mix-blend-mode: screen;
+  opacity: 0;
+  transition: opacity 0.6s var(--ease);
+}
+.poster.is-flowing .poster__fall {
+  opacity: 1;
+  animation: fall 1.6s linear infinite;
+}
+@keyframes fall { to { background-position: 0 15cqw, 0 0; } }
+
+.poster__pond {
+  position: absolute;
+  left: 0;
+  top: 77.6%;      /* the pond's edge on the poster */
+  width: 100%;
+  height: 22.4%;
+  cursor: pointer;
+}
+
+.poster__text {
+  position: absolute;
+  right: 2.4%;
+  top: 9.8%;
+  display: grid;
+  justify-items: end;
+  gap: 0.8cqw;
+  writing-mode: vertical-rl;
+  text-align: start;
+}
+.poster__title {
+  font: 500 3.1cqw/1 "Cormorant SC", serif;
+  letter-spacing: 0.12em;
+  color: var(--vermilion);
+}
+.poster__line {
+  font: 500 1.75cqw/1.4 "Cormorant SC", serif;
+  letter-spacing: 0.08em;
+  color: var(--ink);
+}
+
+/* ---------- Side ---------- */
+.side { display: grid; gap: 1.2rem; }
+.side__title { font-size: 2.4rem; font-weight: 600; letter-spacing: 0.1em; line-height: 1.1; }
+.side__title::before {
+  content: "";
+  display: block;
+  width: 2.6rem;
+  aspect-ratio: 1;
+  margin-bottom: 1rem;
+  border-radius: 50%;
+  background: var(--ink);
+}
+.side__lede { line-height: 1.9; }
+.side__hint { font-size: 0.9rem; color: var(--mute); }
+.side__toggle {
+  justify-self: start;
+  height: 44px;
+  padding: 0 1.1rem;
+  border: 1.5px solid var(--ink);
+  border-radius: 999px;
+  background: transparent;
+  cursor: pointer;
+}
+.side__toggle[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+
+.credit {
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: 1rem clamp(1rem, 4vw, 3rem) 1.5rem;
+  font-size: 0.8rem;
+  line-height: 1.7;
+  color: var(--mute);
+}
+
+@media (max-width: 860px) {
+  .hall { grid-template-columns: 1fr; justify-items: center; }
+  .poster { width: 100%; height: auto; }
+  .side { width: 100%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .poster.is-flowing .poster__fall { animation: none; }
+}

@@ -1,0 +1,254 @@
+/* Ojisan museum tone study
+   Print poster, light only on purpose. Colors sampled from the poster. */
+
+@font-face {
+  font-family: "Shippori Mincho";
+  src: url("fonts/shippori-mincho-400-subset.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+}
+/* Both Shippori files are subsets of this page's Japanese text. Re-subset after editing copy. */
+@font-face {
+  font-family: "Shippori Mincho";
+  src: url("fonts/shippori-mincho-600-subset.woff2") format("woff2");
+  font-weight: 600;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Archivo";
+  src: url("fonts/archivo-latin.woff2") format("woff2");
+  font-weight: 100 900;
+  font-display: swap;
+}
+
+:root {
+  --paper: #f1eee7;
+  --card: #faf8f3;
+  --ink: #333333;
+  --line: #3c3c3c;
+  --pink: #ea908a;
+  --wash: #d2c6c0;
+  --brand: #8e5a54;      /* logo red, darkened from #9C6660 for 5:1 */
+  --mincho: "Shippori Mincho", "Hiragino Mincho ProN", "Yu Mincho", serif;
+  --grotesk: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  --gutter: clamp(1rem, 4vw, 3.5rem);
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  color-scheme: light;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--mincho);
+  -webkit-font-smoothing: antialiased;
+}
+h1, p, ol, figure { margin: 0; }
+button { font: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--brand); outline-offset: 3px; }
+
+/* ---------- Poster frame ---------- */
+.poster {
+  position: relative;
+  min-height: 100dvh;
+  display: grid;
+  grid-template-rows: 1fr auto;
+}
+
+.guide {
+  position: absolute;
+  top: 1.25rem;
+  right: var(--gutter);
+  z-index: 3;
+  height: 36px;
+  padding: 0 1rem;
+  border: 1px solid var(--line);
+  background: transparent;
+  font-size: 0.9rem;
+  letter-spacing: 0.12em;
+  cursor: pointer;
+}
+.guide[aria-pressed="true"] { background: var(--line); color: var(--paper); }
+
+.stage {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  padding-top: clamp(4rem, 12dvh, 8rem);
+}
+
+/* ---------- Exhibit ---------- */
+.exhibit {
+  position: relative;
+  grid-column: 1;
+  grid-row: 1;
+  width: min(62vw, 38dvh * 505 / 370);
+}
+.exhibit__art { position: relative; }
+.exhibit__art img { display: block; width: 100%; height: auto; mix-blend-mode: multiply; }
+
+.spot {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  width: 30px;
+  height: 30px;
+  translate: -50% -50%;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 1.5px solid var(--line);
+  border-radius: 50%;
+  background: var(--paper);
+  font: 600 0.8rem/1 var(--grotesk);
+  cursor: pointer;
+  transition: background-color 0.2s var(--ease), color 0.2s var(--ease), scale 0.2s var(--ease);
+}
+.spot:hover,
+.spot[aria-expanded="true"] { background: var(--line); color: var(--paper); scale: 1.08; }
+
+.labels { list-style: none; padding: 0; }
+
+/* Museum caption cards, placed next to their spot */
+.label {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  z-index: 2;
+  width: 15.5em;
+  padding: 0.75rem 1rem 0.85rem;
+  background: var(--card);
+  border: 1px solid var(--line);
+  box-shadow: 0 10px 24px -14px rgb(80 64 56 / 0.45);
+  font-size: 0.9rem;
+  line-height: 1.6;
+  opacity: 0;
+  visibility: hidden;
+  translate: var(--tx) calc(var(--ty) + 6px);
+  transition: opacity 0.25s var(--ease), translate 0.25s var(--ease), visibility 0s 0.25s;
+}
+.label.is-open,
+.exhibit.is-guide .label {
+  opacity: 1;
+  visibility: visible;
+  translate: var(--tx) var(--ty);
+  transition: opacity 0.25s var(--ease), translate 0.25s var(--ease), visibility 0s;
+}
+#label-1 { --tx: 18px; --ty: calc(-100% - 4px); }
+#label-2 { --tx: 18px; --ty: 20px; }
+#label-3 { --tx: 22px; --ty: -50%; }
+#label-4 { --tx: -24px; --ty: 26px; }
+
+/* Guide mode: all captions hang on the wall to the right, like a museum label rail */
+.exhibit.is-guide .labels {
+  position: absolute;
+  left: calc(100% + clamp(2rem, 5vw, 5rem));
+  top: 0;
+  display: grid;
+  grid-template-columns: repeat(2, 15.5em);
+  gap: 1rem;
+  font-size: 0.9rem;
+}
+.exhibit.is-guide .label { position: static; translate: none; }
+.exhibit.is-guide .label.is-lit { border-width: 2px; }
+
+.label__no { font: 600 0.72rem/1 var(--grotesk); letter-spacing: 0.14em; color: var(--brand); }
+.label__name { margin-top: 0.4rem; font-size: 1.05rem; font-weight: 600; }
+.label__text { margin-top: 0.15rem; }
+
+/* ---------- Copy + mark ---------- */
+.side {
+  grid-column: 2;
+  grid-row: 2;
+  justify-self: start;
+  display: grid;
+  justify-items: end;
+  gap: clamp(1rem, 3dvh, 2.5rem);
+  margin: -6dvh 0 0 clamp(0.5rem, 2.5vw, 2.5rem);
+}
+.copy { writing-mode: vertical-rl; }
+.copy h1 {
+  margin-left: 1.4em;
+  font-size: clamp(1.05rem, 1.4vw, 1.25rem);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+}
+.copy p {
+  font-size: clamp(0.78rem, 0.85vw, 0.86rem);
+  line-height: 2.2;
+  letter-spacing: 0.18em;
+}
+
+.mark {
+  display: grid;
+  justify-items: center;
+  margin-right: -0.6rem;
+}
+.mark img { width: 60px; height: auto; mix-blend-mode: multiply; }
+.mark__name { margin-top: 0.1rem; font-size: 1.1rem; letter-spacing: 0.02em; color: var(--brand); }
+.mark__sub { font: 600 0.6875rem/1 var(--grotesk); letter-spacing: 0.18em; color: var(--brand); }
+
+/* ---------- Footer row ---------- */
+.foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 0.75rem 2rem;
+  padding: 1.5rem var(--gutter) 1.25rem;
+}
+.date {
+  display: grid;
+  font-family: var(--grotesk);
+  font-weight: 700;
+  line-height: 0.95;
+  color: var(--line);
+}
+.date span { font-size: clamp(1.2rem, 2vw, 1.6rem); letter-spacing: -0.01em; }
+.date strong { font-size: clamp(2.2rem, 4.4vw, 3.6rem); letter-spacing: -0.02em; }
+.fine {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 1.5rem;
+  padding-bottom: 0.3rem;
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+}
+
+.credit {
+  padding: 0 var(--gutter) 1.5rem;
+  font: italic 0.8rem var(--grotesk);
+  color: #5e5a55;
+}
+
+/* ---------- Narrow: stack, keep the copy vertical, labels become a list ---------- */
+@media (max-width: 760px) {
+  .guide { display: none; }
+  .stage { grid-template-columns: 1fr; padding-top: 4.5rem; }
+  .exhibit { width: 100%; }
+  .exhibit__art { width: 100%; }
+  .label {
+    position: static;
+    width: auto;
+    opacity: 1;
+    visibility: visible;
+    translate: none;
+    box-shadow: none;
+    border-width: 0 0 1px;
+    background: none;
+    padding: 0.75rem var(--gutter);
+  }
+  .labels { margin-top: 1rem; }
+  .side { grid-column: 1; grid-row: 2; justify-self: end; margin: 2.5rem var(--gutter) 0 0; }
+}
+
+/* ---------- Motion: spots arrive after the poster settles, inviting a closer look ---------- */
+@media (prefers-reduced-motion: no-preference) {
+  .exhibit__art img { animation: fade 0.9s var(--ease) both; }
+  .spot { animation: pop 0.5s var(--ease) both; animation-delay: calc(0.9s + var(--i, 0) * 120ms); }
+}
+@keyframes fade { from { opacity: 0; } }
+@keyframes pop { from { opacity: 0; scale: 0.6; } }
+@media (prefers-reduced-motion: reduce) {
+  .label, .spot { transition: none; }
+}

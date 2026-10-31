@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Hamlet V.ii</title>
+  <!-- Local-only original art switch; does nothing in the public repo (see the file) -->
+  <script src="../../overview/local-original.js"></script>
+  <meta name="description" content="Tone study after Yerko's Hamlet spread: live verse set over a graphite plate drawn for this page." />
+  <link rel="preload" href="assets/plate.jpg" as="image" />
+  <link rel="stylesheet" href="styles.css" />
+  <script src="main.js" defer></script>
+</head>
+<body>
+  <header class="bar">
+    <p class="bar__title">Hamlet <span>Act V, Scene ii</span></p>
+    <div class="bar__controls">
+      <div class="seg" role="group" aria-label="Language">
+        <button type="button" data-lang="en" aria-pressed="true">EN</button>
+        <button type="button" data-lang="zh" aria-pressed="false">中文</button>
+      </div>
+      <button type="button" class="bar__orig" data-original aria-pressed="false" hidden>Original</button>
+    </div>
+  </header>
+
+  <main>
+    <!-- The spread: a graphite plate drawn for this page (src/gen.py), verse set live on top. -->
+    <article class="spread" data-lang-root lang="en">
+      <div class="page">
+      <img class="spread__plate" src="assets/plate.jpg" width="2296" height="1768"
+           alt="A bier borne on four halberds, draped with a dark cloak, a crown and a sword laid on top, banners hanging at either side; a smear of graphite runs down between the two columns of text." />
+      <img class="spread__orig" src="assets/reference-spread.jpg" width="2308" height="1780" alt="" aria-hidden="true" />
+
+      <div class="col col--left">
+        <!-- Horatio, continuing from the previous page -->
+        <div class="speech" data-speaker="horatio">
+          <p class="lines">
+            <span data-zh="淫亂、血腥、違逆天理的行徑，">Of carnal, bloody, and unnatural acts,</span>
+            <span data-zh="意外的裁判，無心的殺戮，">Of accidental judgments, casual slaughters,</span>
+            <span data-zh="借詭計與逼迫招來的死亡，">Of deaths put on by cunning and forced cause,</span>
+            <span data-zh="以及到頭來，錯用的心機">And, in this upshot, purposes mistook</span>
+            <span data-zh="反落在設計者自己頭上：這一切我都能">Fall'n on the inventors' heads: all this can I</span>
+            <span data-zh="如實相告。" data-half-start="a">Truly deliver.</span>
+          </p>
+        </div>
+        <div class="speech" data-speaker="fortinbras">
+          <button type="button" class="who" aria-pressed="false" data-zh="福丁布拉斯">Fortinbras</button>
+          <p class="lines">
+            <span data-zh="讓我們趕快聽，" data-half-end="a">Let us haste to hear it,</span>
+            <span data-zh="並召集最尊貴的人來聽。">And call the noblest to the audience.</span>
+            <span data-zh="至於我，我含悲接受我的命運：">For me, with sorrow I embrace my fortune:</span>
+            <span data-zh="我在這王國有些舊日的權利，">I have some rights of memory in this kingdom,</span>
+            <span data-zh="如今時機正促我出來主張。">Which now to claim my vantage doth invite me.</span>
+          </p>
+        </div>
+      </div>
+
+      <div class="col col--right">
+        <div class="speech" data-speaker="horatio">
+          <button type="button" class="who" aria-pressed="false" data-zh="霍拉旭">Horatio</button>
+          <p class="lines">
+            <span data-zh="這件事我也有理由說明，">Of that I shall have also cause to speak,</span>
+            <span data-zh="還要借他的口，他一句話能招來更多人；">And from his mouth whose voice will draw on more;</span>
+            <span data-zh="但這事得立刻去辦，">But let this same be presently perform'd,</span>
+            <span data-zh="趁人心還在動盪；免得再生不幸，">Even while men's minds are wild; lest more mischance,</span>
+            <span data-zh="陰謀與差錯接連而來。" data-half-start="b">On plots and errors, happen.</span>
+          </p>
+        </div>
+        <div class="speech" data-speaker="fortinbras">
+          <button type="button" class="who" aria-pressed="false" data-zh="福丁布拉斯">Fortinbras</button>
+          <p class="lines">
+            <span data-zh="讓四名隊長" data-half-end="b">Let four captains</span>
+            <span data-zh="把哈姆雷特像軍人一樣抬上高台；">Bear Hamlet, like a soldier, to the stage;</span>
+            <span data-zh="因為他若有機會登上王位，">For he was likely, had he been put on,</span>
+            <span data-zh="必定極有王者氣度。">To have proved most royally.</span>
+          </p>
+        </div>
+      </div>
+      </div>
+    </article>
+
+    <p class="credit">
+      Style study after Vladyslav Yerko’s spread for <i>Hamlet</i> (A-BA-BA-HA-LA-MA-HA, 2009). The graphite plate was drawn for this page. Text: Shakespeare, public domain; Chinese rendering written for this study.
+    </p>
+  </main>
+  <!-- Shared spec card and link back to the catalogue -->
+  <script src="../../overview/catalog.js" defer></script>
+  <script src="../../overview/spec.js" defer></script>
+</body>
+</html>

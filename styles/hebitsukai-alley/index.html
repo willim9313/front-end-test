@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>路地的五個顏色</title>
+  <!-- Local-only original art switch; does nothing in the public repo (see the file) -->
+  <script src="../../overview/local-original.js"></script>
+  <meta name="description" content="Tone study after Hebitsukai's alley illustration: the five flat colours separated so the alley can be repainted for night, rain or dusk." />
+  <link rel="preload" href="assets/layer-navy.png" as="image" />
+  <link rel="stylesheet" href="styles.css" />
+  <script src="main.js" defer></script>
+</head>
+<body data-preset="day">
+  <main class="stage">
+    <!-- Four ink layers over the paper colour, drawn for this page (src/gen.py); each fills with its own variable -->
+    <figure class="alley" data-alley role="img"
+            aria-label="從高處往下看的一點透視窄巷，兩旁擠滿直立招牌、條紋遮陽棚、冷氣和一串串燈籠，巷子中央站著一個提著橘色包包的小孩，角落有一隻貓，天上有星星和月亮。">
+      <span class="layer layer--mint" data-layer="mint"></span>
+      <span class="layer layer--peach" data-layer="peach"></span>
+      <span class="layer layer--orange" data-layer="orange"></span>
+      <span class="layer layer--navy" data-layer="navy"></span>
+    </figure>
+
+    <aside class="panel">
+      <p class="panel__by" lang="ja">へびつかい</p>
+      <h1 class="panel__title">路地的五個顏色</h1>
+      <p class="panel__lede">整張畫只用了五個平塗色。把它們拆開，就能把同一條巷子換成另一個時間。</p>
+
+      <div class="presets" role="group" aria-label="時間">
+        <button type="button" data-set="day" aria-pressed="true">白天</button>
+        <button type="button" data-set="dusk" aria-pressed="false">傍晚</button>
+        <button type="button" data-set="rain" aria-pressed="false">下雨</button>
+        <button type="button" data-set="night" aria-pressed="false">深夜</button>
+      </div>
+
+      <ul class="swatches">
+        <li><button type="button" class="swatch" data-isolate="paper"><i style="background: var(--paper)"></i><span>地面</span><code data-hex="paper"></code></button></li>
+        <li><button type="button" class="swatch" data-isolate="navy"><i style="background: var(--navy)"></i><span>深藍</span><code data-hex="navy"></code></button></li>
+        <li><button type="button" class="swatch" data-isolate="orange"><i style="background: var(--orange)"></i><span>橘</span><code data-hex="orange"></code></button></li>
+        <li><button type="button" class="swatch" data-isolate="peach"><i style="background: var(--peach)"></i><span>蜜桃</span><code data-hex="peach"></code></button></li>
+        <li><button type="button" class="swatch" data-isolate="mint"><i style="background: var(--mint)"></i><span>薄荷</span><code data-hex="mint"></code></button></li>
+      </ul>
+      <p class="panel__hint">指向色票，只看這個顏色畫了哪些地方。</p>
+    </aside>
+  </main>
+
+  <p class="credit">風格研究，靈感來自 Pinterest 上へびつかい（Hebitsukai）的插畫。巷景是這頁自己重新畫的，招牌上的店名都是虛構的；畫好後拆成四個色層重新上色，傍晚、下雨、深夜三組配色也是這頁另配的。</p>
+  <!-- Shared spec card and link back to the catalogue -->
+  <script src="../../overview/catalog.js" defer></script>
+  <script src="../../overview/spec.js" defer></script>
+</body>
+</html>

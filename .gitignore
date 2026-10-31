@@ -1,0 +1,11 @@
+# Reference artworks are third-party originals: keep them on your own machine
+# only, never in git. Sources are listed in CREDITS.md and each NOTES.md.
+styles/*/assets/reference*.jpg
+styles/*/assets/pinterest-reference.jpg
+
+# Earlier versions of page art cut from the reference originals: local only, never in git.
+styles/*/local-original/
+
+# Python environment managed by uv (uv sync)
+.venv/
+__pycache__/

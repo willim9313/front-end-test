@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>轉著讀 Killoffer</title>
+  <!-- Local-only original art switch; does nothing in the public repo (see the file) -->
+  <script src="../../overview/local-original.js"></script>
+  <meta name="description" content="Tone study after Killoffer's isometric cube comic: a redrawn reading-order map you can play step by step, beside the strip." />
+  <link rel="preload" href="assets/comic.png" as="image" />
+  <link rel="stylesheet" href="styles.css" />
+  <script src="main.js" defer></script>
+</head>
+<body>
+  <main class="desk">
+    <section class="guide" aria-labelledby="title">
+      <p class="guide__by" lang="fr">d’après Killoffer</p>
+      <h1 id="title" class="guide__title">轉著讀</h1>
+      <p class="guide__lede">十二格畫在一個立方體的三個面上，每一格的透視都跟著那一面走。照下面的閱讀順序圖，從 1 走到 12：先讀頂面，再讀右面、左面，一邊讀一邊把立方體轉一圈。</p>
+
+    <svg class="map" viewBox="-80 -20 960 968" style="--len: 11" role="img" aria-label="閱讀順序圖：六角形（一個立方體）的三個面各分成四格，一條線依 1 到 12 的順序穿過每一格：先讀頂面，再讀右面，最後讀左面；外圍三個箭頭表示一邊讀一邊順時針轉。" data-map>
+      <polygon class="map__hex" points="400,64 746,264 746,664 400,864 54,664 54,264" />
+      <path class="map__edge" d="M54,264 L400,464 L746,264 M400,464 V864" />
+      <defs><marker id="head" viewBox="0 0 10 10" refX="3" refY="5" markerWidth="2.6" markerHeight="2.6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" /></marker></defs>
+      <g class="map__arrows">
+        <path d="M 554 41 A 450 450 0 0 1 808 274" />
+        <path d="M 689 809 A 450 450 0 0 1 361 912" />
+        <path d="M -43 542 A 450 450 0 0 1 31 206" />
+      </g>
+      <polyline class="map__route" points="400,164 573,264 400,364 227,264 487,514 660,414 660,614 487,714 140,414 313,514 313,714 140,614" />
+      <polyline class="map__trace" points="400,164 573,264 400,364 227,264 487,514 660,414 660,614 487,714 140,414 313,514 313,714 140,614" pathLength="11" />
+      <g class="step" data-step="1"><circle cx="400" cy="164" r="15" /><text x="400" y="124">1</text></g>
+      <g class="step" data-step="2"><circle cx="573" cy="264" r="15" /><text x="599" y="234">2</text></g>
+      <g class="step" data-step="3"><circle cx="400" cy="364" r="15" /><text x="400" y="324">3</text></g>
+      <g class="step" data-step="4"><circle cx="227" cy="264" r="15" /><text x="201" y="234">4</text></g>
+      <g class="step" data-step="5"><circle cx="487" cy="514" r="15" /><text x="522" y="534">5</text></g>
+      <g class="step" data-step="6"><circle cx="660" cy="414" r="15" /><text x="699" y="406">6</text></g>
+      <g class="step" data-step="7"><circle cx="660" cy="614" r="15" /><text x="695" y="634">7</text></g>
+      <g class="step" data-step="8"><circle cx="487" cy="714" r="15" /><text x="500" y="752">8</text></g>
+      <g class="step" data-step="9"><circle cx="140" cy="414" r="15" /><text x="101" y="406">9</text></g>
+      <g class="step" data-step="10"><circle cx="313" cy="514" r="15" /><text x="278" y="534">10</text></g>
+      <g class="step" data-step="11"><circle cx="313" cy="714" r="15" /><text x="300" y="752">11</text></g>
+      <g class="step" data-step="12"><circle cx="140" cy="614" r="15" /><text x="105" y="634">12</text></g>
+      <circle class="map__cursor" r="26" cx="400" cy="164" />
+    </svg>
+
+      <div class="player">
+        <button type="button" class="player__play" data-play aria-pressed="false">播放</button>
+        <label class="player__scrub">
+          <span class="visually-hidden">目前格數</span>
+          <input type="range" min="1" max="12" step="1" value="1" data-scrub />
+        </label>
+        <output class="player__out" data-out>第 1 格</output>
+      </div>
+
+      <details class="dialogue">
+        <summary>對白</summary>
+        <p class="dialogue__line" lang="fr">Encore un toit… et encore une porte. On monte, on descend — et on revient toujours au même endroit.</p>
+        <p class="dialogue__zh">「又一個屋頂……又一扇門。爬上去、掉下來——最後總是回到同一個地方。」</p>
+        <ul class="bubbles">
+          <li><span class="bubble" lang="fr">Encore !</span><span class="gloss">又來了！</span></li>
+          <li><span class="bubble" lang="fr">Tiens !</span><span class="gloss">咦！</span></li>
+          <li><span class="bubble" lang="fr">Hop !</span><span class="gloss">嘿！</span></li>
+          <li><span class="bubble" lang="fr">Laquelle ?</span><span class="gloss">哪一扇？</span></li>
+          <li><span class="bubble" lang="fr">Plus haut.</span><span class="gloss">再高一點。</span></li>
+          <li><span class="bubble" lang="fr">Bon.</span><span class="gloss">好。</span></li>
+          <li><span class="bubble" lang="fr">…encore ?</span><span class="gloss">……又來？</span></li>
+        </ul>
+      </details>
+    </section>
+
+    <figure class="strip">
+      <img src="assets/comic.png" width="800" height="928"
+           alt="黑白漫畫：一個立方體的三個面各分成四格。圍著條紋圍巾的小人扛著梯子走過屋頂，找到一扇活板門跳下去，落進滿是門的房間，爬樓梯上到另一個屋頂，架起梯子爬出畫格，最後發現自己又站在立方體頂上。" />
+    </figure>
+  </main>
+
+  <p class="credit">風格研究，靈感來自 Pinterest 上 Patrice Killoffer 的立方體漫畫（1993）。漫畫、閱讀順序圖和對白都是這頁自己重新畫、重新寫的，故事和格數都和原作不同。</p>
+  <!-- Shared spec card and link back to the catalogue -->
+  <script src="../../overview/catalog.js" defer></script>
+  <script src="../../overview/spec.js" defer></script>
+</body>
+</html>

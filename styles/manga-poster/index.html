@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Hollow Road · Manga Poster Style</title>
+  <!-- Local-only original art switch; does nothing in the public repo (see the file) -->
+  <script src="../../overview/local-original.js"></script>
+  <meta name="description" content="Style study: top-down manga poster homage with condensed black wordmark and red brush katakana." />
+  <link rel="preload" href="fonts/anton-latin.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="assets/hero-figures.jpg" as="image" />
+  <link rel="stylesheet" href="styles.css" />
+  <!-- Icons: Phosphor (regular weight only) -->
+  <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css" />
+  <script src="main.js" defer></script>
+</head>
+<body>
+  <header class="nav">
+    <a class="nav__brand" href="#top">Hollow Road</a>
+    <nav class="nav__links" aria-label="Primary">
+      <a href="#story">Story</a>
+      <a href="#palette">Palette</a>
+      <a href="#type">Type</a>
+      <a href="#parts">Parts</a>
+    </nav>
+    <button class="nav__theme" type="button" aria-label="Toggle dark mode" data-theme-toggle>
+      <i class="ph ph-moon" aria-hidden="true"></i>
+    </button>
+  </header>
+
+  <main id="top">
+    <!-- HERO: poster composition. Centered on purpose: the poster is the message. -->
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero__axis" aria-hidden="true"></div>
+      <figure class="hero__art">
+        <!-- placeholder (src/placeholder.py); the illustration itself is not published -->
+        <img src="assets/hero-figures.jpg" width="848" height="818"
+             alt="Placeholder: the poster illustration (a horse and a knight seen from above, by DeadKatBarks) is not included." />
+      </figure>
+
+      <div class="wordmark">
+        <h1 id="hero-title" class="wordmark__latin">Hollow Road</h1>
+        <p class="wordmark__kana" lang="ja" aria-hidden="true">
+          <span>ホ</span><span>ロ</span><span>ウ</span><span>ロ</span><span>ー</span><span>ド</span>
+        </p>
+      </div>
+
+      <div class="hero__foot">
+        <p>An animated short about a knight, a horse, and the long way home.</p>
+        <a class="btn btn--ink" href="#story"><i class="ph ph-play" aria-hidden="true"></i>Watch trailer</a>
+      </div>
+    </section>
+
+    <!-- STORY: content sits on both sides of the same center axis -->
+    <section class="story" id="story">
+      <div class="story__axis" aria-hidden="true"></div>
+      <div class="story__text reveal">
+        <h2>A knight walks.<br />The horse already knows the way.</h2>
+        <p>Twelve minutes, no dialogue, every shot drawn from directly above.</p>
+      </div>
+      <figure class="story__still reveal">
+        <img src="assets/still-horse.jpg" width="360" height="380" loading="lazy"
+             alt="Placeholder: close-up of the horse, not included." />
+      </figure>
+    </section>
+
+    <!-- PALETTE: swatch widths follow how much of the poster each color covers -->
+    <section class="palette" id="palette" aria-labelledby="palette-title">
+      <h2 id="palette-title" class="section-title reveal">Five colors. Red only where it hurts.</h2>
+      <ol class="swatches reveal">
+        <li class="swatch swatch--mist">
+          <span class="swatch__kanji" lang="ja">霧</span>
+          <span class="swatch__name">Mist</span><code>#D4DEE1</code>
+        </li>
+        <li class="swatch swatch--sky">
+          <span class="swatch__kanji" lang="ja">空</span>
+          <span class="swatch__name">Sky</span><code>#6E8C94</code>
+        </li>
+        <li class="swatch swatch--ink">
+          <span class="swatch__kanji" lang="ja">墨</span>
+          <span class="swatch__name">Ink</span><code>#1C1C1E</code>
+        </li>
+        <li class="swatch swatch--bone">
+          <span class="swatch__kanji" lang="ja">骨</span>
+          <span class="swatch__name">Bone</span><code>#E6DFD3</code>
+        </li>
+        <li class="swatch swatch--red">
+          <span class="swatch__kanji" lang="ja">朱</span>
+          <span class="swatch__name">Vermilion</span><code>#BC3A32</code>
+        </li>
+      </ol>
+    </section>
+
+    <!-- TYPE: role / sample table -->
+    <section class="type" id="type" aria-labelledby="type-title">
+      <h2 id="type-title" class="section-title reveal">Condensed black, brush red on top.</h2>
+      <dl class="type__table">
+        <div class="type__row reveal">
+          <dt>Display<span>Anton, all caps, tracking 0</span></dt>
+          <dd class="type__display">HOLLOW ROAD</dd>
+        </div>
+        <div class="type__row reveal">
+          <dt>Brush overlay<span>Yuji Boku, vermilion, hand-offset per glyph</span></dt>
+          <dd class="type__overlay">
+            <span class="type__under">ROAD</span>
+            <span class="type__over" lang="ja"><span>ロ</span><span>ー</span><span>ド</span></span>
+          </dd>
+        </div>
+        <div class="type__row reveal">
+          <dt>Body<span>Archivo 400 / 500, 65ch max</span></dt>
+          <dd class="type__body">Keep text quiet and small. The illustration and the wordmark carry the page; everything else stays out of their way.</dd>
+        </div>
+      </dl>
+    </section>
+
+    <!-- PARTS: reusable elements in this style -->
+    <section class="parts" id="parts" aria-labelledby="parts-title">
+      <h2 id="parts-title" class="section-title reveal">Parts in this style.</h2>
+      <div class="bento">
+        <div class="cell cell--buttons reveal">
+          <h3>Buttons</h3>
+          <div class="cell__row">
+            <a class="btn btn--ink" href="#parts"><i class="ph ph-play" aria-hidden="true"></i>Watch trailer</a>
+            <a class="btn btn--line" href="#parts">Read script</a>
+            <a class="btn btn--red" href="#parts">Get tickets</a>
+          </div>
+          <p class="cell__note">Sharp corners only. Red is reserved for one action per screen.</p>
+        </div>
+
+        <form class="cell cell--form reveal" novalidate data-demo-form>
+          <h3>Screening list</h3>
+          <div class="field">
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" autocomplete="email" placeholder="you@example.com" aria-describedby="email-help email-error" />
+            <p class="field__help" id="email-help">One message when tickets open.</p>
+            <p class="field__error" id="email-error" role="alert" hidden>Enter an email address with an @.</p>
+          </div>
+          <button class="btn btn--ink" type="submit">Join list</button>
+          <p class="field__success" role="status" hidden>You're on the list.</p>
+        </form>
+
+        <figure class="cell cell--card reveal">
+          <img src="assets/still-knight.jpg" width="380" height="340" loading="lazy"
+               alt="Placeholder: the knight, not included." />
+          <figcaption>
+            <strong>The Knight</strong>
+            <span>Never shown from the front.</span>
+          </figcaption>
+        </figure>
+
+        <div class="cell cell--rules reveal">
+          <h3>Composition rules</h3>
+          <ul>
+            <li>Camera directly overhead. Shadows fall in one direction.</li>
+            <li>One thin vertical axis splits the frame.</li>
+            <li>The wordmark anchors the bottom and overlaps the figure.</li>
+            <li>Red appears on cloth, leather and brush strokes. Nowhere else.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <span class="footer__mark">Hollow Road</span>
+    <p>Style study after a poster illustrated by DeadKatBarks. Fictional title; the illustrations were drawn for this page.</p>
+  </footer>
+  <!-- Shared spec card and link back to the catalogue -->
+  <script src="../../overview/catalog.js" defer></script>
+  <script src="../../overview/spec.js" defer></script>
+</body>
+</html>

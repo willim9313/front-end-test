@@ -1,0 +1,123 @@
+/* Red umbrella tone study
+   Greyscale everything; the umbrella's red is the only colour on the page,
+   so the UI stays grey too. Light and dark both stay grey. */
+
+@font-face {
+  font-family: "Noto Serif TC";
+  src: url("fonts/noto-serif-tc-400-subset.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+}
+/* Noto files are subsets of this page's text. Re-subset after editing copy. */
+@font-face {
+  font-family: "Noto Serif TC";
+  src: url("fonts/noto-serif-tc-700-subset.woff2") format("woff2");
+  font-weight: 700;
+  font-display: swap;
+}
+
+:root {
+  --bg: #e7e7e5;
+  --text: #1b1b1b;
+  --mute: #545454;   /* 6.3:1 on --bg */
+  --line: #1b1b1b;
+  --red: #c8322a;    /* sampled umbrella red, darkened a touch for UI: 5.2:1 */
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #161616;
+    --text: #ececea;
+    --mute: #a9a9a6;
+    --line: #ececea;
+    --red: #ff5a4c;
+    color-scheme: dark;
+  }
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100dvh;
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Noto Serif TC", "Songti TC", serif;
+  -webkit-font-smoothing: antialiased;
+}
+h1, p { margin: 0; }
+button { font: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--red); outline-offset: 3px; }
+
+.room {
+  display: grid;
+  grid-template-columns: auto minmax(16rem, 21rem);
+  justify-content: center;
+  align-items: center;
+  gap: clamp(2rem, 5vw, 4.5rem);
+  min-height: calc(100dvh - 3rem);
+  padding: clamp(1rem, 3vh, 2rem) clamp(1rem, 4vw, 3rem) 0;
+}
+
+/* ---------- Window ---------- */
+.window {
+  position: relative;
+  margin: 0;
+  height: min(90dvh, 1308px);
+  aspect-ratio: 736 / 1308;
+  overflow: hidden;
+  box-shadow: 0 30px 60px -34px rgb(0 0 0 / 0.55);
+  touch-action: none;   /* dragging wipes the glass instead of scrolling */
+  cursor: crosshair;
+}
+.window__scene,
+.window__fog,
+.window__rain {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.window__rain { pointer-events: none; }
+
+/* ---------- Side ---------- */
+.side { display: grid; gap: 1.25rem; }
+.side__title { font-size: 2.2rem; font-weight: 700; line-height: 1.15; }
+.side__title::after {
+  content: "";
+  display: block;
+  width: 2.2rem;
+  height: 4px;
+  margin-top: 0.9rem;
+  background: var(--red);
+}
+.side__lede { line-height: 1.85; }
+
+.controls { display: grid; gap: 1rem; margin-top: 0.5rem; }
+.control { display: grid; gap: 0.4rem; font-size: 0.95rem; color: var(--mute); }
+.control input { width: 100%; accent-color: var(--red); }
+.wipe {
+  justify-self: start;
+  height: 44px;
+  padding: 0 1.1rem;
+  border: 1.5px solid var(--line);
+  background: transparent;
+  cursor: pointer;
+}
+.wipe:hover { background: var(--text); color: var(--bg); }
+.wipe:active { translate: 0 1px; }
+
+.credit {
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: 1rem clamp(1rem, 4vw, 3rem) 1.5rem;
+  font-size: 0.8rem;
+  line-height: 1.7;
+  color: var(--mute);
+}
+
+@media (max-width: 860px) {
+  .room { grid-template-columns: 1fr; justify-items: center; }
+  .window { height: auto; width: 100%; }
+  .side { width: 100%; }
+}

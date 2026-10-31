@@ -1,0 +1,62 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "buried-raster",
+        "value": "*",
+        "files": [
+          "styles/yerko-hamlet/index.html"
+        ],
+        "createdAt": "2026-10-25T09:49:44.098Z",
+        "reason": "Claude triage: .spread__orig is the original spread hidden at opacity 0 until the 'Original' comparison toggle is pressed; it is shown on demand, not a buried texture"
+      },
+      {
+        "rule": "wide-tracking",
+        "value": "*",
+        "files": [
+          "styles/ojisan-museum/index.html"
+        ],
+        "createdAt": "2026-10-25T10:01:59.299Z",
+        "reason": "Claude triage: tracking is on Japanese vertical (tategaki) copy reproduced from the source poster; CJK body text is customarily set with added spacing, rule targets Latin body"
+      },
+      {
+        "rule": "cream-palette",
+        "value": "*",
+        "files": [
+          "styles/ojisan-museum/index.html"
+        ],
+        "createdAt": "2026-10-25T10:01:59.311Z",
+        "reason": "Claude triage: #F1EEE7 is sampled from the source poster's paper; this page is a tone study of that poster, not a reflex default"
+      },
+      {
+        "rule": "all-caps-body",
+        "value": "*",
+        "files": [
+          "styles/ascent-through-fall/index.html"
+        ],
+        "createdAt": "2026-10-25T11:13:44.585Z",
+        "reason": "Claude triage: the verse and side paragraph are set in caps to reproduce the source poster's typography; this page is a tone study of that poster"
+      },
+      {
+        "rule": "wide-tracking",
+        "value": "*",
+        "files": [
+          "styles/big-issue-anthropologist/index.html"
+        ],
+        "createdAt": "2026-10-26T08:22:30.396Z",
+        "reason": "Claude triage: tracking is on vertical (tategaki) Chinese copy reproducing the source cover; CJK vertical text is customarily set with added spacing"
+      },
+      {
+        "rule": "cream-palette",
+        "value": "*",
+        "files": [
+          "styles/big-issue-anthropologist/index.html"
+        ],
+        "createdAt": "2026-10-26T08:22:30.407Z",
+        "reason": "Claude triage: #FDF1E4 is sampled from the source magazine cover's paper; this page is a tone study of that cover"
+      }
+    ]
+  }
+}

@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="152" height="140" viewBox="0 0 76 70">
+  <!-- Original mark: a round head, round glasses and a moustache. -->
+  <defs><filter id="w"><feTurbulence type="fractalNoise" baseFrequency="0.08" seed="2"/><feDisplacementMap in="SourceGraphic" scale="1.6"/></filter></defs>
+  <rect width="76" height="70" fill="#fff"/>
+  <g filter="url(#w)" fill="none" stroke="#9C6660" stroke-width="2.6" stroke-linecap="round">
+    <path d="M18 40 C 14 20 26 8 40 8 C 54 8 64 20 60 40 C 58 54 48 62 38 62 C 28 62 20 54 18 40 Z"/>
+    <circle cx="30" cy="34" r="6"/><circle cx="48" cy="34" r="6"/><path d="M36 34 h6 M24 33 l-6 -2 M54 33 l6 -2"/>
+    <path d="M28 48 C 32 44 36 46 39 48 C 42 46 46 44 50 48"/>
+  </g>
+</svg>

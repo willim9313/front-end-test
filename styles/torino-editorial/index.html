@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Saluti da Torino</title>
+  <!-- Local-only original art switch; does nothing in the public repo (see the file) -->
+  <script src="../../overview/local-original.js"></script>
+  <meta name="description" content="Style study: single-ink cobalt editorial poster with engraved illustrations, wide-tracked serif caps and footnoted columns." />
+  <link rel="preload" href="fonts/eb-garamond-latin.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="assets/ink-rider.png" as="image" />
+  <link rel="stylesheet" href="styles.css" />
+  <!-- Icons: Phosphor regular + fill -->
+  <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css" />
+  <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/fill/style.css" />
+  <script src="main.js" defer></script>
+</head>
+<body>
+  <header class="nav">
+    <a class="nav__brand" href="#top">Saluti da Torino</a>
+    <nav class="nav__links" aria-label="Primary">
+      <a href="#citta">La città</a>
+      <a href="#cartolina">Cartolina</a>
+      <a href="#elementi">Elementi</a>
+    </nav>
+    <button class="nav__theme" type="button" aria-label="Toggle dark mode" data-theme-toggle>
+      <i class="ph ph-moon" aria-hidden="true"></i>
+    </button>
+  </header>
+
+  <main id="top">
+    <!-- MASTHEAD: centered on purpose, the poster composition is the message -->
+    <section class="masthead" aria-labelledby="masthead-title">
+      <span class="ink ink--corner ink--corner-left" aria-hidden="true"></span>
+      <span class="ink ink--corner ink--corner-right" aria-hidden="true"></span>
+
+      <!-- Real coordinates of the statue, set vertically as on the source poster -->
+      <p class="coord coord--left" aria-hidden="true">45°04'03.7"N</p>
+      <p class="coord coord--right" aria-hidden="true">7°40'57.4"E</p>
+
+      <p class="masthead__kicker">Saluti da</p>
+      <span class="ink ink--rider" role="img"
+            aria-label="Engraving of a knight in armor on a rearing horse, holding a lance with a plumed pennant."></span>
+      <h1 id="masthead-title" class="masthead__title">Torino</h1>
+      <p class="masthead__sub">Città magica</p>
+      <p class="masthead__note">Equestrian statue of Emanuele Filiberto, Piazza San Carlo.</p>
+    </section>
+
+    <!-- ARTICLE: three newspaper columns, engraved drop cap, footnotes -->
+    <section class="article" id="citta" aria-labelledby="article-title">
+      <h2 id="article-title" class="visually-hidden">La città</h2>
+      <div class="article__columns">
+        <p class="article__lead">
+          <span class="ink ink--dropcap" aria-hidden="true"></span>
+          <span class="visually-hidden">T</span>urin, <em>Torino</em> in Italian, is the capital of Piedmont.
+          It began as a Roman colony, <span class="caps">Julia Augusta Taurinorum</span>, became the seat
+          of the House of Savoy, and served as the first capital of the Kingdom of Italy from 1861 to
+          <span class="nowrap">1865.<sup><a href="#note-1" id="ref-1" aria-label="Note 1">[1]</a></sup></span>
+        </p>
+        <p>
+          The city gave Italy vermouth, gianduja chocolate and the long afternoons of its historic cafés.
+          The Shroud is kept here too, in the cathedral a few steps from Piazza Castello, under the
+          spire of the Mole Antonelliana.
+        </p>
+        <p>
+          Turin is also famous for <span class="caps">magic and the occult</span>. Legend places it on
+          two magic triangles: a white one with Lyon and Prague, a black one with London and San
+          Francisco. Nostradamus is said to have stayed here in <span class="nowrap">1556.<sup><a href="#note-2" id="ref-2" aria-label="Note 2">[2]</a></sup></span>
+        </p>
+        <p>
+          Guides will tell you the white heart of the city lies in Piazza Castello, and the black one
+          in Piazza Statuto.
+        </p>
+      </div>
+
+      <ol class="notes" aria-label="Notes">
+        <li id="note-1"><a href="#ref-1" aria-label="Back to text">[1]</a> “Torino”, <em>Enciclopedia Treccani</em>.</li>
+        <li id="note-2"><a href="#ref-2" aria-label="Back to text">[2]</a> V. Messori, A. Cazzullo, <em>Il mistero di Torino</em>, Mondadori, 2004; D. Tacchino, <em>Torino. Storia e misteri di una provincia magica</em>, Edizioni Mediterranee, 2007.</li>
+      </ol>
+    </section>
+
+    <!-- POSTCARD: form + live preview -->
+    <section class="postcard" id="cartolina" aria-labelledby="postcard-title">
+      <form class="postcard__form" novalidate data-postcard-form>
+        <h2 id="postcard-title" class="section-title">Write a postcard</h2>
+        <div class="field">
+          <label for="pc-to">To</label>
+          <input id="pc-to" name="to" type="text" autocomplete="name" placeholder="Giulia Ferraris" aria-describedby="pc-to-error" />
+          <p class="field__error" id="pc-to-error" role="alert" hidden>Add who it is for.</p>
+        </div>
+        <div class="field">
+          <label for="pc-msg">Message</label>
+          <textarea id="pc-msg" name="message" rows="4" maxlength="160" aria-describedby="pc-msg-help">Wish you were here.</textarea>
+          <p class="field__help" id="pc-msg-help"><span data-count>19</span> of 160 characters</p>
+        </div>
+        <button class="btn btn--solid" type="submit">Sign postcard</button>
+        <p class="field__success" role="status" hidden>Signed. The card on the right is ready.</p>
+      </form>
+
+      <article class="card" aria-label="Postcard preview">
+        <div class="card__message">
+          <p class="card__body" data-preview-msg>Wish you were here.</p>
+          <p class="card__sign"><span class="card__arrow" aria-hidden="true"><i class="ph ph-arrow-bend-left-up"></i></span><em>Insieme, o niente!</em></p>
+        </div>
+        <div class="card__address">
+          <div class="postmark" aria-hidden="true">
+            <svg viewBox="0 0 100 100">
+              <defs><path id="ring" d="M50,50 m-36,0 a36,36 0 1,1 72,0 a36,36 0 1,1 -72,0" /></defs>
+              <text><textPath href="#ring" startOffset="4%">REALITY IS A DREAM ·</textPath></text>
+            </svg>
+            <i class="ph-fill ph-heart"></i>
+          </div>
+          <p class="card__to" data-preview-to>Giulia Ferraris</p>
+          <p class="card__line">Via Po</p>
+          <p class="card__line">10124 Torino</p>
+        </div>
+      </article>
+    </section>
+
+    <!-- ELEMENTS: reusable parts of this style (4 items, 4 cells) -->
+    <section class="elements" id="elementi" aria-labelledby="elements-title">
+      <h2 id="elements-title" class="section-title">One ink, one paper.</h2>
+      <div class="bento">
+        <div class="cell cell--ink">
+          <h3>Colors</h3>
+          <dl class="swatches">
+            <div><dt>Cobalt</dt><dd>#1048B8</dd></div>
+            <div><dt>Paper</dt><dd>#EBE9EC</dd></div>
+          </dl>
+          <p>Everything prints in cobalt. Hierarchy comes from size, caps and italics, never from a second color.</p>
+        </div>
+
+        <div class="cell cell--type">
+          <h3>Type</h3>
+          <p class="spec spec--display">Torino</p>
+          <p class="spec spec--caps">Città magica</p>
+          <p class="spec spec--italic">Illustrazione di Kalla, anno 1915 circa.</p>
+          <p class="spec spec--body">EB Garamond throughout. Caps get wide tracking, notes go italic.</p>
+        </div>
+
+        <div class="cell cell--ornaments">
+          <h3>Ornaments</h3>
+          <div class="ornaments">
+            <span class="ink ink--corner-sample" role="img" aria-label="Corner ornament: a leafy vine with berries and a resting moth."></span>
+            <span class="ink ink--dropcap-sample" role="img" aria-label="Engraved drop cap T on a hatched ground with leaf sprigs."></span>
+            <span class="ink ink--bat-sample" role="img" aria-label="Engraved bat with spread wings."></span>
+          </div>
+        </div>
+
+        <div class="cell cell--controls">
+          <h3>Controls</h3>
+          <div class="controls">
+            <a class="btn btn--solid" href="#cartolina">Sign postcard</a>
+            <a class="btn btn--line" href="#citta">Read the notes</a>
+          </div>
+          <p>Square corners, 1px or 2px rules, links underlined like a printed reference.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p class="footer__credit">Bat, vine and drop cap drawn for this page.</p>
+    <span class="ink ink--bat" aria-hidden="true"></span>
+    <p class="footer__credit footer__credit--right">Style study after a poster found on Pinterest. Rider from the plate “Statue en bronze d’Emmanuel Philibert à Turin”, Materials and Documents of Architecture and Sculpture, 1915 (Wikimedia Commons, public domain).</p>
+  </footer>
+  <!-- Shared spec card and link back to the catalogue -->
+  <script src="../../overview/catalog.js" defer></script>
+  <script src="../../overview/spec.js" defer></script>
+</body>
+</html>

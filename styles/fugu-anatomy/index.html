@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Inside a Fugu</title>
+  <!-- Local-only original art switch; does nothing in the public repo (see the file) -->
+  <script src="../../overview/local-original.js"></script>
+  <meta name="description" content="Tone study: a three-ink screenprint fugu anatomy chart, with ink plates you can pull and organ notes." />
+  <link rel="preload" href="assets/plate-teal.png" as="image" />
+  <link rel="stylesheet" href="styles.css" />
+  <script src="main.js" defer></script>
+</head>
+<body>
+  <main class="sheet">
+    <article class="poster" aria-labelledby="title">
+      <header class="poster__head">
+        <p class="kicker" lang="en"><span aria-hidden="true">✿</span> Field Guide No. 7 <span aria-hidden="true">✿</span></p>
+        <h1 id="title" class="title" lang="en">Inside a Fugu</h1>
+        <p class="subtitle">ふぐのなかみ</p>
+      </header>
+
+      <!-- Three screen-printed inks, drawn from scratch as separate plates (see src/) -->
+      <div class="chart" data-chart>
+        <div class="plate plate--teal" role="img" aria-label="ふぐの解剖図：開いたお腹の中に墨袋、ドクロ、腸、トゲのある玉、稲妻の瓶。背中には肋骨、右上に虫めがね、下に箸。"></div>
+        <div class="plate plate--cyan" aria-hidden="true"></div>
+        <div class="plate plate--coral" aria-hidden="true"></div>
+
+        <button type="button" class="tag" style="--x: 13.39%; --y: 81.25%" data-note="ink">非常墨</button>
+        <button type="button" class="tag" style="--x: 29.46%; --y: 81.25%" data-note="poison">ダメ</button>
+        <button type="button" class="tag" style="--x: 29.46%; --y: 16.25%" data-note="ribs">ほね</button>
+        <button type="button" class="tag" style="--x: 75.0%; --y: 81.25%" data-note="spark">根性</button>
+        <button type="button" class="tag" style="--x: 46.88%; --y: 81.25%" data-note="spike">ふくらむ練習</button>
+        <button type="button" class="tag tag--lens" style="--x: 84.82%; --y: 17.5%" data-note="scale" aria-label="うろこ"></button>
+      </div>
+    </article>
+
+    <aside class="bench" lang="zh-Hant">
+      <div class="note" aria-live="polite">
+        <p class="note__ja" lang="ja" data-note-ja>ふぐのなかみ</p>
+        <p class="note__text" data-note-text>點圖上的標籤，看看這條河豚肚子裡裝了什麼。</p>
+      </div>
+
+      <fieldset class="plates">
+        <legend>網版</legend>
+        <label class="chip chip--teal"><input type="checkbox" checked data-plate="teal" /><span>深藍</span></label>
+        <label class="chip chip--cyan"><input type="checkbox" checked data-plate="cyan" /><span>水藍</span></label>
+        <label class="chip chip--coral"><input type="checkbox" checked data-plate="coral" /><span>珊瑚紅</span></label>
+      </fieldset>
+    </aside>
+  </main>
+
+  <p class="credit" lang="zh-Hant">風格研究，靈感來自 ppmid 在 TeePublic 販售的「Fugu anatomy Tokyo」海報（經 Pinterest 找到）。插畫是這頁自己重新畫的三個色版，構圖與細節和原作不同；標題、標籤與器官說明都是這頁另寫的，沒有沿用原作的文字。</p>
+  <!-- Shared spec card and link back to the catalogue -->
+  <script src="../../overview/catalog.js" defer></script>
+  <script src="../../overview/spec.js" defer></script>
+</body>
+</html>

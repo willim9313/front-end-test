@@ -1,0 +1,154 @@
+/* Hebitsukai alley tone study
+   Five flat colours: the paper (page) plus four ink layers, each an alpha mask
+   filled with a variable. Presets swap all five at once. The "night" preset
+   doubles as the page's dark theme. */
+
+@font-face {
+  font-family: "Noto Sans TC";
+  src: url("fonts/noto-sans-tc-400-subset.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+}
+/* Noto files are subsets of this page's text. Re-subset after editing copy. */
+@font-face {
+  font-family: "Noto Sans TC";
+  src: url("fonts/noto-sans-tc-700-subset.woff2") format("woff2");
+  font-weight: 700;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Archivo";
+  src: url("fonts/archivo-500-latin.woff2") format("woff2");
+  font-weight: 500;
+  font-display: swap;
+}
+
+/* Sampled from the illustration */
+body[data-preset="day"] {
+  --paper: #f2fcf8; --navy: #023d5c; --orange: #f86c42; --peach: #fccc9a; --mint: #a8eae0;
+  --chrome: #e4efec; --text: #0e2a3a; --mute: #3f5866;
+}
+body[data-preset="dusk"] {
+  --paper: #fde6d2; --navy: #3a2348; --orange: #e84a36; --peach: #ffb46a; --mint: #f4a3a0;
+  --chrome: #f3d9c6; --text: #2e1a38; --mute: #5c4466;
+}
+body[data-preset="rain"] {
+  --paper: #dde5e9; --navy: #2a3846; --orange: #b8695c; --peach: #cdbba9; --mint: #93b3b8;
+  --chrome: #cfd8dd; --text: #1f2a35; --mute: #44525e;
+}
+body[data-preset="night"] {
+  --paper: #10273a; --navy: #03080f; --orange: #ff7b4b; --peach: #ffd36e; --mint: #36d1bd;
+  --chrome: #0a1724; --text: #e4f2ef; --mute: #a3b9bf;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100dvh;
+  background: var(--chrome);
+  color: var(--text);
+  font-family: "Noto Sans TC", "PingFang TC", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  transition: background-color 0.6s ease, color 0.6s ease;
+}
+h1, p, ul { margin: 0; }
+button { font: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--orange); outline-offset: 3px; }
+
+.stage {
+  display: grid;
+  grid-template-columns: auto minmax(17rem, 22rem);
+  justify-content: center;
+  align-items: center;
+  gap: clamp(2rem, 5vw, 4.5rem);
+  min-height: calc(100dvh - 3rem);
+  padding: clamp(1rem, 3vh, 2rem) clamp(1rem, 4vw, 3rem) 0;
+}
+
+/* ---------- Alley ---------- */
+.alley {
+  position: relative;
+  margin: 0;
+  height: min(88dvh, 1200px);
+  aspect-ratio: 986 / 1200;
+  background: var(--paper);
+  box-shadow: 0 24px 50px -30px rgb(0 0 0 / 0.5);
+  transition: background-color 0.6s ease;
+}
+.layer {
+  position: absolute;
+  inset: 0;
+  -webkit-mask-size: 100% 100%;
+          mask-size: 100% 100%;
+  transition: background-color 0.6s ease, opacity 0.3s ease;
+}
+.layer--navy   { background: var(--navy);   -webkit-mask-image: url("assets/layer-navy.png");   mask-image: url("assets/layer-navy.png"); }
+.layer--orange { background: var(--orange); -webkit-mask-image: url("assets/layer-orange.png"); mask-image: url("assets/layer-orange.png"); }
+.layer--peach  { background: var(--peach);  -webkit-mask-image: url("assets/layer-peach.png");  mask-image: url("assets/layer-peach.png"); }
+.layer--mint   { background: var(--mint);   -webkit-mask-image: url("assets/layer-mint.png");   mask-image: url("assets/layer-mint.png"); }
+
+/* Isolate one colour: the rest fade to a ghost */
+.alley[data-isolate] .layer { opacity: 0.1; }
+.alley[data-isolate="navy"] .layer--navy,
+.alley[data-isolate="orange"] .layer--orange,
+.alley[data-isolate="peach"] .layer--peach,
+.alley[data-isolate="mint"] .layer--mint { opacity: 1; }
+
+/* ---------- Panel ---------- */
+.panel { display: grid; gap: 1.1rem; }
+.panel__by { font-size: 0.95rem; color: var(--mute); }
+.panel__title { font-size: 2rem; font-weight: 700; line-height: 1.2; }
+.panel__lede { line-height: 1.8; }
+.panel__hint { font-size: 0.85rem; color: var(--mute); }
+
+.presets { display: grid; grid-template-columns: repeat(4, 1fr); border: 1.5px solid var(--text); }
+.presets button {
+  height: 44px;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+.presets button + button { border-left: 1.5px solid var(--text); }
+.presets button[aria-pressed="true"] { background: var(--text); color: var(--chrome); }
+
+.swatches { display: grid; gap: 0.35rem; padding: 0; list-style: none; }
+.swatch {
+  display: grid;
+  grid-template-columns: 2.4rem 1fr auto;
+  align-items: center;
+  gap: 0.9rem;
+  width: 100%;
+  padding: 0.35rem 0.5rem 0.35rem 0.35rem;
+  border: 0;
+  background: transparent;
+  text-align: left;
+  cursor: default;
+}
+.swatch:hover, .swatch:focus-visible { background: color-mix(in srgb, var(--text) 8%, transparent); }
+.swatch i {
+  height: 1.8rem;
+  border: 1.5px solid var(--text);
+  transition: background-color 0.6s ease;
+}
+.swatch code { font: 500 0.85rem "Archivo", sans-serif; letter-spacing: 0.04em; text-transform: uppercase; color: var(--mute); }
+
+.credit {
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: 1rem clamp(1rem, 4vw, 3rem) 1.5rem;
+  font-size: 0.8rem;
+  line-height: 1.7;
+  color: var(--mute);
+}
+
+@media (max-width: 860px) {
+  .stage { grid-template-columns: 1fr; justify-items: center; }
+  .alley { width: 100%; height: auto; }
+  .panel { width: 100%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  body, .alley, .layer, .swatch i { transition: none; }
+}

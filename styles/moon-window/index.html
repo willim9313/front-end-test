@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>月窗</title>
+  <!-- Local-only original art switch; does nothing in the public repo (see the file) -->
+  <script src="../../overview/local-original.js"></script>
+  <meta name="description" content="Tone study after a moon-window poster: the waterfall keeps running out of the circle and the koi pond ripples where you touch it." />
+  <link rel="preload" href="assets/poster.jpg" as="image" />
+  <link rel="stylesheet" href="styles.css" />
+  <script src="main.js" defer></script>
+</head>
+<body>
+  <main class="hall">
+    <figure class="poster" data-poster>
+      <img class="poster__art" src="assets/poster.jpg" width="736" height="977"
+           alt="米色紙上一個大圓窗，窗裡是有月亮、層層遠山和松枝的夜景；一道瀑布從崖上流出圓窗、落進下方的錦鯉池；岸邊一座石燈籠、一隻丹頂鶴，幾隻燕子飛過。" />
+      <!-- Moving water: a streak texture that only shows through the waterfall's own shape -->
+      <span class="poster__fall" aria-hidden="true"></span>
+      <canvas class="poster__pond" data-pond aria-hidden="true"></canvas>
+
+      <figcaption class="poster__text" lang="en">
+        <span class="poster__title">The Pious</span>
+        <span class="poster__line">Water leaves the window, the pond keeps it.</span>
+      </figcaption>
+    </figure>
+
+    <aside class="side">
+      <h1 class="side__title">月窗</h1>
+      <p class="side__lede">一個圓把畫分成兩個世界：窗裡是月夜的山，窗外是一張米色的紙。瀑布是唯一越界的東西，從窗裡一路流到池子。</p>
+      <p class="side__hint">點一下池面，看漣漪散開。</p>
+      <button type="button" class="side__toggle" data-flow aria-pressed="true">水在流動</button>
+    </aside>
+  </main>
+
+  <p class="credit">風格研究，靈感來自 Pinterest 上一張圓窗瀑布海報（作者不明）。海報是這頁自己重新畫的，圓窗裡的景色、岸邊的人物和配置都和原作不同；右上的直排小標與句子也是這頁寫的。</p>
+  <!-- Shared spec card and link back to the catalogue -->
+  <script src="../../overview/catalog.js" defer></script>
+  <script src="../../overview/spec.js" defer></script>
+</body>
+</html>

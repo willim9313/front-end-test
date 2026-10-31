@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>人類學家 Field Notes</title>
+  <!-- Local-only original art switch; does nothing in the public repo (see the file) -->
+  <script src="../../overview/local-original.js"></script>
+  <meta name="description" content="Tone study after a Noritake magazine cover: an anthropologist at his notebook, observed in turn by the animals around him." />
+  <link rel="stylesheet" href="styles.css" />
+  <script src="main.js" defer></script>
+</head>
+<body>
+  <main class="cover">
+    <!-- Masthead: the cover's bold logo treatment, with an invented title -->
+    <header class="mast" lang="en">
+      <p class="mast__the">The</p>
+      <p class="mast__name">Field Notes</p>
+      <p class="mast__tag">Who is watching whom.</p>
+      <p class="mast__no" aria-label="Issue 72">72</p>
+    </header>
+
+    <!-- The illustration: an original monoline drawing for this page (src/art.svg) -->
+    <figure class="art" data-art>
+      <div class="art__ink" data-ink role="img" aria-label="戴圓眼鏡、留大鬍子的男人在桌前寫筆記；頭上站著一隻小鳥，左邊有坐在書堆上的猴子和一隻狗，右後方站著一隻熊，桌角趴著一隻貓，全都盯著他。"></div>
+      <div class="art__dim" aria-hidden="true"></div>
+      <button type="button" class="who" style="--x: 52%; --y: 11.5%; --r: 11" data-who="bird">鳥</button>
+      <button type="button" class="who" style="--x: 77.5%; --y: 33%; --r: 15" data-who="bear">熊</button>
+      <button type="button" class="who" style="--x: 34%; --y: 44%; --r: 12" data-who="monkey">猴子</button>
+      <button type="button" class="who" style="--x: 21%; --y: 69%; --r: 14" data-who="dog">狗</button>
+      <button type="button" class="who" style="--x: 81%; --y: 88%; --r: 14" data-who="cat">貓</button>
+      <button type="button" class="who" style="--x: 52%; --y: 81%; --r: 14" data-who="man">筆記本</button>
+    </figure>
+
+    <!-- Vertical copy, as on the cover -->
+    <section class="column" aria-live="polite">
+      <h1 class="column__title">人類學家</h1>
+      <p class="column__en" lang="en">Life on Mars</p>
+      <p class="column__by" data-by>田野筆記</p>
+      <p class="column__text" data-text>牠們圍著他坐了一整個下午，各自記下了一些東西。指向任何一位，看看牠寫了什麼。</p>
+    </section>
+  </main>
+
+  <p class="credit">風格研究，參考 Pinterest 上 Noritake 為《大誌》台灣版第 72 期（2016 年 3 月）畫的封面。插圖是這頁自己重畫的單線圖，不是描原圖；刊名、筆記文字也為這頁另寫，非原封面內容。</p>
+  <!-- Shared spec card and link back to the catalogue -->
+  <script src="../../overview/catalog.js" defer></script>
+  <script src="../../overview/spec.js" defer></script>
+</body>
+</html>

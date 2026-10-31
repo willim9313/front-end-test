@@ -1,0 +1,209 @@
+/* Anthropologist cover tone study
+   Noritake's single-weight black line on warm newsprint, light only (it is a printed cover).
+   The art is a traced SVG inlined with fill: currentColor. */
+
+@font-face {
+  font-family: "Noto Serif TC";
+  src: url("fonts/noto-serif-tc-400-subset.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+}
+/* Both Noto files are subsets of this page's text (HTML + main.js). Re-subset after editing copy. */
+@font-face {
+  font-family: "Noto Serif TC";
+  src: url("fonts/noto-serif-tc-600-subset.woff2") format("woff2");
+  font-weight: 600;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Archivo";
+  src: url("fonts/archivo-latin.woff2") format("woff2");
+  font-weight: 100 900;
+  font-display: swap;
+}
+
+:root {
+  --paper: #fdf1e4;      /* sampled from the cover */
+  --ink: #1c1a18;        /* 15.6:1 on paper */
+  --mute: #6b6158;       /* 5.4:1 */
+  --serif: "Noto Serif TC", "Songti TC", serif;
+  --sans: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  color-scheme: light;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100dvh;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--serif);
+  -webkit-font-smoothing: antialiased;
+}
+h1, p, figure { margin: 0; }
+button { font: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
+
+/* ---------- Cover grid ---------- */
+.cover {
+  display: grid;
+  grid-template-columns: minmax(12rem, 18rem) minmax(0, 1fr);
+  grid-template-rows: 1fr auto;
+  grid-template-areas:
+    "column art"
+    "mast   art";
+  gap: 2rem clamp(2rem, 5vw, 5rem);
+  min-height: calc(100dvh - 3.5rem);
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: clamp(1.5rem, 5vh, 3.5rem) clamp(1rem, 4vw, 3.5rem) 1rem;
+}
+
+/* ---------- Vertical column ---------- */
+.column {
+  grid-area: column;
+  justify-self: end;
+  writing-mode: vertical-rl;
+  max-height: 62dvh;
+}
+/* blocks stack right to left in vertical-rl; margin-left is the gap between columns */
+.column > * + * { margin-left: 1.1rem; }
+.column__title { font-size: 2.1rem; font-weight: 600; letter-spacing: 0.12em; line-height: 1; }
+.column__en {
+  font-size: 2rem;
+  line-height: 1;
+  letter-spacing: 0.01em;
+  /* Latin set sideways in the vertical flow, as on the cover */
+  text-orientation: sideways;
+}
+.column__by {
+  margin-left: 1.6rem !important;
+  font: 600 0.9rem/1 var(--serif);
+  letter-spacing: 0.1em;
+  color: var(--mute);
+}
+.column__text {
+  font-size: 1.05rem;
+  line-height: 2;
+  letter-spacing: 0.06em;
+  max-block-size: 22em;
+}
+
+/* ---------- Masthead ---------- */
+.mast {
+  grid-area: mast;
+  position: relative;
+  align-self: end;
+  padding-left: 1.6rem;
+  font-family: var(--sans);
+}
+.mast__the {
+  position: absolute;
+  left: 0;
+  top: 0.2rem;
+  font-weight: 800;
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  writing-mode: vertical-rl;
+  rotate: 180deg;
+}
+.mast__name {
+  font-weight: 800;
+  font-size: clamp(2.2rem, 3.6vw, 3rem);
+  line-height: 1;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.mast__tag { margin-top: 0.6rem; font-size: 0.85rem; color: var(--mute); }
+.mast__no {
+  display: inline-grid;
+  place-items: center;
+  min-width: 3.4rem;
+  margin-top: 1rem;
+  padding: 0.35rem 0.6rem;
+  border: 1.5px solid var(--ink);
+  font-weight: 300;
+  font-size: 1.6rem;
+  line-height: 1;
+}
+
+/* ---------- Art ---------- */
+.art {
+  grid-area: art;
+  position: relative;
+  align-self: center;
+  width: min(100%, 76dvh * 1950 / 2130);
+  aspect-ratio: 1950 / 2130;
+  /* lengths in % of the art box for the spotlight */
+  container-type: size;
+}
+.art__ink { position: absolute; inset: 0; color: var(--ink); }
+.art__ink svg { display: block; width: 100%; height: 100%; }
+
+/* Spotlight: everyone but the chosen observer fades back into the paper */
+.art__dim {
+  position: absolute;
+  inset: -2%;
+  background: var(--paper);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s var(--ease);
+  -webkit-mask-image: radial-gradient(circle at var(--sx, 50%) var(--sy, 50%), transparent calc(var(--sr, 10) * 1cqw), #000 calc(var(--sr, 10) * 1cqw + 4cqw));
+          mask-image: radial-gradient(circle at var(--sx, 50%) var(--sy, 50%), transparent calc(var(--sr, 10) * 1cqw), #000 calc(var(--sr, 10) * 1cqw + 4cqw));
+}
+.art[data-focus] .art__dim { opacity: 0.8; }
+
+.who {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  width: calc(var(--r) * 2%);
+  aspect-ratio: 1;
+  translate: -50% -50%;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: none;
+  color: transparent;
+  font-size: 0;
+  cursor: pointer;
+}
+.who:focus-visible { outline: 2px dashed var(--ink); outline-offset: 0; }
+
+/* ---------- Credit ---------- */
+.credit {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0.5rem clamp(1rem, 4vw, 3.5rem) 1.5rem;
+  font-size: 0.8rem;
+  line-height: 1.7;
+  color: var(--mute);
+}
+
+/* ---------- Narrow ---------- */
+@media (max-width: 760px) {
+  .cover {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    grid-template-areas: "mast" "art" "column";
+    gap: 1.5rem;
+  }
+  .art { width: 100%; }
+  .column { justify-self: center; max-height: none; height: 22rem; }
+  .column__text { max-block-size: none; }
+  .mast__no { position: absolute; right: 0; top: 0; margin: 0; }
+}
+
+/* ---------- Motion: a quiet look-up when focus moves ---------- */
+@media (prefers-reduced-motion: no-preference) {
+  .column__by, .column__text { transition: opacity 0.25s var(--ease); }
+  .art__ink { animation: settle 0.9s var(--ease) both; }
+}
+@keyframes settle { from { opacity: 0; transform: translateY(8px); } }
+@media (prefers-reduced-motion: reduce) {
+  .art__dim { transition: none; }
+}

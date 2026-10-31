@@ -1,0 +1,195 @@
+/* Killoffer cube-comic tone study
+   Black ink on white, no grey and no colour: the comic's own rule. Light only, it is print. */
+
+@font-face {
+  font-family: "Noto Sans TC";
+  src: url("fonts/noto-sans-tc-400-subset.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+}
+/* Noto files are subsets of this page's text (HTML + main.js). Re-subset after editing copy. */
+@font-face {
+  font-family: "Noto Sans TC";
+  src: url("fonts/noto-sans-tc-700-subset.woff2") format("woff2");
+  font-weight: 700;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Comic Neue";
+  src: url("fonts/comic-neue-700-latin.woff2") format("woff2");
+  font-weight: 700;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Archivo Narrow";
+  src: url("fonts/archivo-narrow-500-latin.woff2") format("woff2");
+  font-weight: 500;
+  font-display: swap;
+}
+
+:root {
+  --paper: #fcfcfa;
+  --ink: #141414;
+  --mute: #555555;      /* 7.3:1 */
+  --sans: "Noto Sans TC", "PingFang TC", sans-serif;
+  --letter: "Comic Neue", "Chalkboard SE", sans-serif;
+  --narrow: "Archivo Narrow", "Arial Narrow", sans-serif;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  color-scheme: light;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100dvh;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--sans);
+  -webkit-font-smoothing: antialiased;
+}
+h1, p, figure, ul { margin: 0; }
+button { font: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
+.visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* ---------- Layout ---------- */
+.desk {
+  display: grid;
+  grid-template-columns: minmax(18rem, 26rem) auto;
+  justify-content: center;
+  align-items: start;
+  gap: clamp(2rem, 5vw, 5rem);
+  padding: clamp(1.5rem, 4vh, 3rem) clamp(1rem, 4vw, 3rem) 1rem;
+}
+
+/* ---------- Guide ---------- */
+.guide { display: grid; gap: 1rem; padding-top: 1rem; }
+.guide__by { font: 500 0.95rem var(--narrow); letter-spacing: 0.04em; }
+.guide__title { font-size: 2.6rem; font-weight: 700; line-height: 1.05; }
+.guide__lede { font-size: 1rem; line-height: 1.8; max-width: 26em; }
+
+.map { width: 100%; height: auto; margin-top: 0.5rem; overflow: visible; }
+.map__hex { fill: none; stroke: var(--ink); stroke-width: 9; stroke-linejoin: round; }
+.map__arrows path {
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: 26;
+  stroke-linecap: round;
+  marker-end: url(#head);
+}
+#head path { fill: var(--ink); }
+.map__edge { fill: none; stroke: var(--ink); stroke-width: 3; opacity: 0.35; }
+.map__route { fill: none; stroke: var(--ink); stroke-width: 4; stroke-dasharray: 2 12; stroke-linecap: round; }
+.map__trace {
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: 9;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+  stroke-dasharray: var(--len, 17);
+  stroke-dashoffset: calc(var(--len, 17) - var(--done, 0));
+  transition: stroke-dashoffset 0.5s var(--ease);
+}
+.step circle { fill: var(--paper); stroke: var(--ink); stroke-width: 6; transition: fill 0.3s var(--ease); }
+.step text {
+  font: 700 38px var(--narrow);
+  fill: var(--ink);
+  text-anchor: middle;
+  dominant-baseline: central;
+}
+.step.is-done circle { fill: var(--ink); }
+.map__cursor {
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: 5;
+  transition: cx 0.5s var(--ease), cy 0.5s var(--ease);
+}
+
+.player { display: flex; align-items: center; gap: 1rem; }
+.player__play {
+  height: 44px;
+  min-width: 5.5rem;
+  padding: 0 1.1rem;
+  border: 2px solid var(--ink);
+  background: var(--paper);
+  font-weight: 700;
+  cursor: pointer;
+}
+.player__play[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+.player__play:active { translate: 0 1px; }
+.player__scrub { flex: 1; display: flex; }
+.player__scrub input { width: 100%; accent-color: var(--ink); }
+.player__out { min-width: 4.2em; font-weight: 700; font-variant-numeric: tabular-nums; text-align: right; }
+
+/* ---------- Dialogue ---------- */
+.dialogue { border-top: 2px solid var(--ink); padding-top: 0.75rem; }
+.dialogue summary { font-weight: 700; cursor: pointer; }
+.dialogue__line {
+  margin-top: 0.9rem;
+  font: 700 1.15rem/1.4 var(--letter);
+  text-transform: uppercase;
+}
+.dialogue__zh { margin-top: 0.3rem; color: var(--mute); }
+.bubbles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem 0.5rem;
+  margin-top: 1rem;
+  padding: 0;
+  list-style: none;
+}
+.bubbles li { display: grid; justify-items: start; gap: 0.2rem; }
+.bubble {
+  position: relative;
+  padding: 0.3rem 0.65rem;
+  border: 2px solid var(--ink);
+  border-radius: 999px;
+  font: 700 0.85rem/1.1 var(--letter);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+/* the little tail of a speech balloon */
+.bubble::after {
+  content: "";
+  position: absolute;
+  left: 0.9rem;
+  bottom: -7px;
+  width: 9px;
+  height: 9px;
+  background: var(--paper);
+  border-right: 2px solid var(--ink);
+  border-bottom: 2px solid var(--ink);
+  transform: skewX(-25deg) rotate(45deg);
+}
+.gloss { padding-left: 0.4rem; margin-top: 0.15rem; font-size: 0.82rem; color: var(--mute); }
+
+/* ---------- Strip ---------- */
+.strip img {
+  display: block;
+  width: auto;
+  height: min(80dvh, 928px);
+  max-width: 100%;
+  object-fit: contain;
+  mix-blend-mode: multiply;
+}
+
+.credit {
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: 1rem clamp(1rem, 4vw, 3rem) 1.75rem;
+  font-size: 0.8rem;
+  line-height: 1.7;
+  color: var(--mute);
+}
+
+/* ---------- Narrow ---------- */
+@media (max-width: 860px) {
+  .desk { grid-template-columns: 1fr; }
+  .guide { padding-top: 0; }
+  .strip img { width: 100%; height: auto; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .map__trace, .map__cursor, .step circle { transition: none; }
+}

@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>昼休みおじさん資料館</title>
+  <!-- Local-only original art switch; does nothing in the public repo (see the file) -->
+  <script src="../../overview/local-original.js"></script>
+  <meta name="description" content="Tone study: a Japanese poster for a fictional ojisan museum, with exhibit labels on the illustration." />
+  <link rel="preload" href="assets/figure.jpg" as="image" />
+  <link rel="stylesheet" href="styles.css" />
+  <script src="main.js" defer></script>
+</head>
+<body>
+  <main class="poster">
+    <button type="button" class="guide" aria-pressed="false" data-guide>展示ラベル</button>
+
+    <div class="stage">
+      <!-- The exhibit: an illustration drawn for this page (src/figure.svg), with museum labels on its parts -->
+      <figure class="exhibit">
+        <div class="exhibit__art">
+          <img src="assets/figure.jpg" width="505" height="370"
+               alt="横向きのおじさんが、鼻までずり落ちた眼鏡で、口を半開きにして新聞を広げている。" />
+          <button type="button" class="spot" style="--x: 55.8%; --y: 27%" aria-controls="label-1" aria-expanded="false">1</button>
+          <button type="button" class="spot" style="--x: 55.8%; --y: 37%" aria-controls="label-2" aria-expanded="false">2</button>
+          <button type="button" class="spot" style="--x: 89%; --y: 35%" aria-controls="label-3" aria-expanded="false">3</button>
+          <button type="button" class="spot" style="--x: 14%; --y: 44.6%" aria-controls="label-4" aria-expanded="false">4</button>
+        </div>
+
+        <ol class="labels">
+          <li class="label" id="label-1" style="--x: 55.8%; --y: 27%">
+            <p class="label__no">No. 1</p>
+            <p class="label__name">眼鏡</p>
+            <p class="label__text">遠近両用。新聞を読むときだけ、少し下にずらす。</p>
+          </li>
+          <li class="label" id="label-2" style="--x: 55.8%; --y: 37%">
+            <p class="label__no">No. 2</p>
+            <p class="label__name">口</p>
+            <p class="label__text">特に理由のない「はぁ」。本人は気づいていない。</p>
+          </li>
+          <li class="label" id="label-3" style="--x: 89%; --y: 35%">
+            <p class="label__no">No. 3</p>
+            <p class="label__name">新聞</p>
+            <p class="label__text">スポーツ面から読む。一面は最後。</p>
+          </li>
+          <li class="label" id="label-4" style="--x: 14%; --y: 44.6%">
+            <p class="label__no">No. 4</p>
+            <p class="label__name">背中</p>
+            <p class="label__text">ゆるやかな猫背。満員電車で完成した形。</p>
+          </li>
+        </ol>
+      </figure>
+
+      <div class="side">
+      <!-- Vertical copy, set right to left as on the poster -->
+      <section class="copy" aria-labelledby="title">
+        <h1 id="title">昼休みおじさん資料館。</h1>
+        <p>
+          平日の十二時五分、<br />
+          駅前の喫茶店の窓際で、<br />
+          新聞を半分に折るひとがいます。<br />
+          誰にも見られていないと<br />
+          思っているその背中を、<br />
+          私たちは記録することにしました。<br />
+          「昼休みおじさん資料館」、<br />
+          駅前にひっそり開館します。
+        </p>
+      </section>
+
+      <div class="mark">
+        <img src="assets/logo-mark.jpg" width="76" height="70" alt="" />
+        <p class="mark__name">HIRU-OJI</p>
+        <p class="mark__sub">LUNCHBREAK OJISAN ARCHIVE</p>
+      </div>
+      </div>
+    </div>
+
+    <footer class="foot">
+      <p class="date"><span>12:05 OPEN AT</span> <strong>EKIMAE</strong></p>
+      <p class="fine">
+        <span>入館料　いつもの定食一回分</span>
+        <span>場所　駅前の喫茶店のとなり（架空の施設です）</span>
+      </p>
+    </footer>
+  </main>
+
+  <p class="credit" lang="en">Style study after a newspaper poster found on Pinterest (designer unknown). The museum, its copy, the logo mark, the illustration and the exhibit labels are all made up for this page; only the layout follows the poster.</p>
+  <!-- Shared spec card and link back to the catalogue -->
+  <script src="../../overview/catalog.js" defer></script>
+  <script src="../../overview/spec.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ascent Through Fall</title>
+  <!-- Local-only original art switch; does nothing in the public repo (see the file) -->
+  <script src="../../overview/local-original.js"></script>
+  <meta name="description" content="Tone study: a grey photocopy poster where scrolling lets the title's blades fall and the verse arrive line by line." />
+  <link rel="preload" href="fonts/league-gothic-latin.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="styles.css" />
+  <script src="main.js" defer></script>
+</head>
+<body>
+  <!-- Scrolling through this tall block drives the poster: the fall, then the rise -->
+  <div class="scroller">
+    <article class="poster" aria-labelledby="title">
+      <img class="poster__art" src="assets/art.png" width="1080" height="1350"
+           alt="A winged figure falls headfirst beside a thin vertical line, under a black star and a fan of thin rays; a crescent moon, a target circle, loose feathers and small stars around." />
+
+      <p class="marks marks--top" aria-hidden="true">⊠⊠⊠⊠</p>
+
+      <h1 id="title" class="title">
+        <span class="title__line title__line--ascent" data-fit="26.6">Ascent</span>
+        <span class="title__line title__line--through" data-fit="22.5"><i class="blade blade--1" aria-hidden="true"></i>Through</span>
+        <span class="title__line title__line--fall" data-fit="16.5"><i class="blade blade--2" aria-hidden="true"></i><i class="blade blade--3" aria-hidden="true"></i>Fall</span>
+      </h1>
+
+      <p class="poem">
+        <span style="--i: 0">Nobody warns you that falling</span>
+        <span style="--i: 1">is mostly quiet: the wind goes</span>
+        <span style="--i: 2">soft, the light stays above,</span>
+        <span style="--i: 3">and for a long while you are</span>
+        <span style="--i: 4">only a shape the sky lets go.</span>
+        <span style="--i: 5">But feathers keep their own</span>
+        <span style="--i: 6">counsel, and somewhere past</span>
+        <span style="--i: 7">the halfway mark they turn,</span>
+        <span style="--i: 8">catch, and carry you up</span>
+        <span style="--i: 9" class="poem__last">again.</span>
+      </p>
+
+      <p class="marks marks--mid" aria-hidden="true">⊠⊠⊠⊠</p>
+
+      <p class="aside">A fall is a line drawn from the star to the target. Read it top to bottom and it is an ending; read it bottom to top and it is the same line, going the other way.</p>
+
+      <p class="credit-line">A study after Visual_Nest</p>
+    </article>
+  </div>
+
+  <footer class="note">
+    <p>Tone study after “Ascent Through Fall” by Visual_Nest, found on Pinterest. The illustration, verse and note were drawn and written for this page; only the title and the layout idea follow the poster.</p>
+  </footer>
+  <!-- Shared spec card and link back to the catalogue -->
+  <script src="../../overview/catalog.js" defer></script>
+  <script src="../../overview/spec.js" defer></script>
+</body>
+</html>

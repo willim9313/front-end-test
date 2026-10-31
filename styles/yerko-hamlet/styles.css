@@ -1,0 +1,203 @@
+/* Yerko Hamlet tone study
+   Print-emulating page: light only, on purpose. The plate is the original spread
+   with its text cleared and the paper lifted to white, multiplied onto --paper. */
+
+@font-face {
+  font-family: "EB Garamond";
+  src: url("fonts/eb-garamond-latin.woff2") format("woff2");
+  font-weight: 400 700;
+  font-display: swap;
+}
+@font-face {
+  font-family: "EB Garamond";
+  src: url("fonts/eb-garamond-italic-latin.woff2") format("woff2");
+  font-weight: 400 700;
+  font-style: italic;
+  font-display: swap;
+}
+/* Subset: only the Chinese characters used on this page. Re-subset after editing the text. */
+@font-face {
+  font-family: "Noto Serif TC";
+  src: url("fonts/noto-serif-tc-subset.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+}
+
+:root {
+  --paper: #f1f1f1;
+  --desk: #e4e4e2;
+  --ink: #141414;
+  --graphite: #4a4a4a;
+  --label: #7d6553;       /* original #967E6C darkened to 4.8:1 */
+  --serif: "EB Garamond", "Times New Roman", serif;
+  --serif-zh: "Noto Serif TC", "Songti TC", serif;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  color-scheme: light;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100dvh;
+  background: var(--desk);
+  color: var(--ink);
+  font-family: var(--serif);
+  -webkit-font-smoothing: antialiased;
+}
+p { margin: 0; }
+button { font: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--label); outline-offset: 3px; }
+
+/* Paper grain over everything, fixed so it never repaints on scroll. */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 30;
+  pointer-events: none;
+  opacity: 0.35;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .5 0 0 0 0 .5 0 0 0 0 .5 0 0 0 .18 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ---------- Bar ---------- */
+.bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  height: 64px;
+  padding: 0 clamp(1rem, 3vw, 2.5rem);
+}
+.bar__title { font-size: 1.05rem; letter-spacing: 0.04em; }
+.bar__title span { margin-left: 0.6rem; font-style: italic; color: var(--graphite); }
+.bar__controls { display: flex; gap: 0.75rem; }
+.seg { display: flex; border: 1px solid var(--graphite); }
+.seg button,
+.bar__orig {
+  height: 36px;
+  padding: 0 0.9rem;
+  border: 0;
+  background: transparent;
+  font-size: 0.95rem;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+}
+.seg button + button { border-left: 1px solid var(--graphite); }
+.seg button[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+.seg button[data-lang="zh"] { font-family: var(--serif-zh); letter-spacing: 0.02em; }
+.bar__orig { border: 1px solid var(--graphite); font-style: italic; }
+.bar__orig[aria-pressed="true"] { background: var(--ink); color: var(--paper); font-style: normal; }
+@media (max-width: 480px) {
+  .bar__title span { display: none; }
+}
+
+/* ---------- Spread ---------- */
+main { padding: 0 clamp(0.75rem, 3vw, 2.5rem) 2.5rem; }
+
+.spread {
+  container: spread / inline-size;
+  max-width: 1320px;
+  margin: 0 auto;
+  background: var(--paper);
+  box-shadow:
+    0 1px 0 rgb(0 0 0 / 0.04),
+    0 30px 60px -30px rgb(60 56 50 / 0.45);
+}
+/* .page carries a soft fold down the middle, like the book's gutter */
+.page {
+  position: relative;
+  aspect-ratio: 2296 / 1768;
+  background: linear-gradient(90deg, transparent 47.5%, rgb(0 0 0 / 0.05) 50%, transparent 52.5%);
+}
+
+.spread__plate,
+.spread__orig {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  mix-blend-mode: multiply;
+}
+.spread__orig { opacity: 0; transition: opacity 0.5s var(--ease); }
+
+.col {
+  position: absolute;
+  font-size: 1.38cqw;
+  line-height: 1.52;
+  transition: opacity 0.5s var(--ease);
+}
+.col--left { left: 8.4%; top: 57.4%; width: 39%; }
+.col--right { left: 59.6%; top: 62.1%; width: 31%; }
+
+.speech { transition: opacity 0.35s var(--ease); }
+.speech + .speech { margin-top: 1.15em; }
+.lines span { display: block; white-space: nowrap; }
+
+.who {
+  display: block;
+  margin: 0 0 0.25em -0.9em;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--label);
+  font-size: 0.8em;
+  text-transform: uppercase;
+  letter-spacing: 0.24em;
+  cursor: pointer;
+}
+.who:hover,
+.who[aria-pressed="true"] { text-decoration: underline; text-underline-offset: 0.3em; text-decoration-thickness: 1px; }
+
+/* Speaker focus: everyone else steps back into the paper */
+.spread[data-focus="horatio"] .speech:not([data-speaker="horatio"]),
+.spread[data-focus="fortinbras"] .speech:not([data-speaker="fortinbras"]) { opacity: 0.22; }
+
+/* Chinese */
+.spread[lang="zh-Hant"] .col { font-family: var(--serif-zh); font-size: 1.22cqw; line-height: 1.72; letter-spacing: 0.04em; }
+.spread[lang="zh-Hant"] .who { letter-spacing: 0.3em; text-transform: none; }
+
+/* Original toggle: show the untouched spread for comparison */
+.spread.is-original .spread__orig { opacity: 1; }
+.spread.is-original .spread__plate,
+.spread.is-original .col { opacity: 0; }
+
+/* Narrow: drop the fixed page, keep the plate's top and set the verse in normal flow */
+@container spread (max-width: 720px) {
+  .page { aspect-ratio: auto; background: none; padding-bottom: 2rem; }
+  .spread__plate { position: static; height: auto; aspect-ratio: 2296 / 1150; object-fit: cover; object-position: top; }
+  .spread__orig { position: static; height: auto; display: none; }
+  .spread.is-original .spread__orig { display: block; }
+  .spread.is-original .spread__plate { display: none; }
+  .col { position: static; width: auto; font-size: 1.1rem; padding: 0 1.5rem 0 2.25rem; }
+  .col--right { margin-top: 1.15em; }
+  .lines span { white-space: normal; padding-left: 1em; text-indent: -1em; }
+  .spread[lang="zh-Hant"] .col { font-size: 1rem; }
+}
+
+.credit {
+  max-width: 1320px;
+  margin: 1.25rem auto 0;
+  font-size: 0.9rem;
+  font-style: italic;
+  color: var(--graphite);
+}
+
+/* ---------- Motion: the procession settles, then the verse is set ---------- */
+@media (prefers-reduced-motion: no-preference) {
+  .spread__plate {
+    -webkit-mask-image: linear-gradient(#000 45%, transparent 55%);
+            mask-image: linear-gradient(#000 45%, transparent 55%);
+    -webkit-mask-size: 100% 300%;
+            mask-size: 100% 300%;
+    animation: descend 2.2s cubic-bezier(0.65, 0, 0.35, 1) both;
+  }
+  .lines span,
+  .who { animation: set 0.7s var(--ease) both; animation-delay: calc(1.4s + var(--i, 0) * 45ms); }
+}
+@keyframes descend {
+  from { -webkit-mask-position: 0 100%; mask-position: 0 100%; }
+  to { -webkit-mask-position: 0 0; mask-position: 0 0; }
+}
+@keyframes set { from { opacity: 0; transform: translateY(0.3em); } }
